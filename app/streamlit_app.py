@@ -38,35 +38,40 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
     html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
-    .stMetric { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-                border-radius: 12px; padding: 16px; border: 1px solid rgba(255,255,255,0.1); }
-    h1 { background: linear-gradient(90deg, #e94560, #0f3460);
-         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-         font-weight: 700; }
-    .highlight-red { color: #e94560; font-weight: 600; }
-    .highlight-green { color: #2ecc71; font-weight: 600; }
+    .stMetric { background: #ffffff;
+                border-radius: 0px; padding: 16px; border: 1px solid #e0e6ed; border-left: 4px solid #ff003c; 
+                box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+    h1, h2, h3 { 
+         color: #111111;
+         font-weight: 800; 
+         letter-spacing: -0.03em;
+         text-transform: uppercase;
+    }
+    .highlight-red { color: #ff003c; font-weight: 700; }
+    .highlight-green { color: #111111; font-weight: 700; }
     .explainer-box {
-        background: rgba(255,255,255,0.03);
-        border-left: 3px solid #0f3460;
-        border-radius: 0 8px 8px 0;
-        padding: 12px 16px;
+        background: #fdfdfd;
+        border-left: 4px solid #ff003c;
+        border-radius: 0;
+        padding: 16px 20px;
         margin: 8px 0 16px 0;
-        font-size: 0.88rem;
-        color: rgba(255,255,255,0.72);
+        font-size: 0.95rem;
+        color: #333333;
         line-height: 1.6;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.02);
     }
     .term-pill {
         display: inline-block;
-        background: rgba(14,52,96,0.6);
-        border: 1px solid rgba(14,52,96,0.9);
-        border-radius: 4px;
-        padding: 1px 7px;
-        font-size: 0.82rem;
-        font-weight: 600;
-        color: #7eb8f7;
+        background: #111111;
+        border-radius: 0px;
+        padding: 1px 8px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #ffffff;
         margin: 0 2px;
+        text-transform: uppercase;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -194,10 +199,8 @@ st.sidebar.markdown("---")
 pages = [
     "📊 Dashboard",
     "🗺️ World Map",
-    "🔗 Network Communities",
     "💥 Shock Simulator",
-    "🔬 Spectral Diagnostics",
-    "🌐 Spectral Embedding",
+    "🌐 3D Network Map",
 ]
 page = st.sidebar.radio("Navigation", pages)
 
@@ -284,7 +287,7 @@ if page == "📊 Dashboard":
                 hover_data={"country_name": False, "iso3": True,
                             "structural_score": ":.3f", "network_amplification": ":.3f"},
             )
-            fig.update_layout(template="plotly_dark", height=450,
+            fig.update_layout(template="plotly_white", height=450,
                               xaxis_tickangle=-35, xaxis_title="")
             st.plotly_chart(fig, width="stretch")
             st.caption(
@@ -322,7 +325,7 @@ if page == "📊 Dashboard":
                 hover_name="country_name",
                 hover_data={"country_name": False, "iso3": True, "pagerank": ":.5f"},
             )
-            fig.update_layout(template="plotly_dark", height=450,
+            fig.update_layout(template="plotly_white", height=450,
                               xaxis_tickangle=-35, xaxis_title="")
             st.plotly_chart(fig, width="stretch")
             st.caption(
@@ -356,7 +359,7 @@ if page == "📊 Dashboard":
                 hover_name="country_name",
                 hover_data={"country_name": False, "iso3": True},
             )
-            fig.update_layout(template="plotly_dark", height=450,
+            fig.update_layout(template="plotly_white", height=450,
                               xaxis_tickangle=-35, xaxis_title="")
             st.plotly_chart(fig, width="stretch")
             st.caption(
@@ -498,7 +501,7 @@ elif page == "🗺️ World Map":
                 hover_data=hover_data,
             )
         fig.update_layout(
-            template="plotly_dark", height=700,
+            template="plotly_white", height=700,
             margin=dict(l=0, r=0, t=40, b=0),
             geo=dict(
                 showocean=True, oceancolor="rgb(20,30,50)",
@@ -560,7 +563,7 @@ elif page == "🔗 Network Communities":
                 hover_data={"iso3": True, "cluster": True, "country_name": False},
             )
             fig.update_layout(
-                template="plotly_dark", height=600,
+                template="plotly_white", height=600,
                 margin=dict(l=0, r=0, t=40, b=0),
                 geo=dict(showocean=True, oceancolor="rgb(20,30,50)",
                          showland=True, landcolor="rgb(40,50,70)",
@@ -612,7 +615,7 @@ elif page == "🔗 Network Communities":
             )
             fig.add_hline(y=0, line_dash="dash", line_color="rgba(255,255,255,0.4)",
                           annotation_text="Partition boundary (sign = 0)")
-            fig.update_layout(template="plotly_dark", height=500,
+            fig.update_layout(template="plotly_white", height=500,
                               xaxis_tickangle=-90, xaxis_title="",
                               xaxis_showticklabels=False)
             st.plotly_chart(fig, width="stretch")
@@ -634,7 +637,7 @@ elif page == "🔗 Network Communities":
                 hover_data={"iso3": True, "fiedler_vector": ":.4f", "country_name": False},
             )
             fig2.update_layout(
-                template="plotly_dark", height=600,
+                template="plotly_white", height=600,
                 margin=dict(l=0, r=0, t=40, b=0),
                 geo=dict(showocean=True, oceancolor="rgb(20,30,50)",
                          showland=True, landcolor="rgb(40,50,70)"),
@@ -688,7 +691,7 @@ elif page == "🔗 Network Communities":
                         hover_name="country_name",
                         hover_data={"iso3": True, "pagerank": ":.5f"},
                     )
-                fig.update_layout(template="plotly_dark", height=420,
+                fig.update_layout(template="plotly_white", height=420,
                                   xaxis_tickangle=-45, xaxis_title="")
                 st.plotly_chart(fig, width="stretch")
 
@@ -703,7 +706,7 @@ elif page == "🔗 Network Communities":
                     hover_name="country_name",
                     hover_data={"iso3": True, "betweenness": ":.4f"},
                 )
-                fig.update_layout(template="plotly_dark", height=420,
+                fig.update_layout(template="plotly_white", height=420,
                                   xaxis_tickangle=-45, xaxis_title="")
                 st.plotly_chart(fig, width="stretch")
 
@@ -729,6 +732,8 @@ elif page == "💥 Shock Simulator":
         "country's structural baseline, and α controls how strongly neighbours influence each other. "
         "The system converges to a new equilibrium (steady state) after the shock is applied."
     )
+    
+    st.info("**Key Finding — The Empirical Limits of Contagion:** Popular narratives often overstate the risk of global domino effects. Because our rigorous empirical cross-validation calibrated the network coupling parameter (*α*) to ~0.05, the data shows that **domestic structural inertia overwhelmingly dominates international spillovers over a 1-year horizon.** While the network accurately maps *how* instability transmits, the low coupling strength means massive shocks are largely absorbed by the domestic resilience of neighboring states, rather than causing global cascading failure.")
 
     if "W" not in data or "steady_state" not in data:
         st.warning("Model outputs required. Run `make model` first.")
@@ -797,7 +802,7 @@ elif page == "💥 Shock Simulator":
             fig.add_vline(x=0, line_dash="dash", line_color="rgba(255,80,80,0.5)",
                           annotation_text="Shock applied")
             fig.update_layout(
-                template="plotly_dark",
+                template="plotly_white",
                 title=f"Instability Trajectory: {magnitude}σ Shock to {COUNTRY_NAMES.get(selected_iso, selected_iso)} ({selected_iso})",
                 xaxis_title="Time Step (each step = one propagation period)",
                 yaxis_title="Instability Score",
@@ -823,7 +828,7 @@ elif page == "💥 Shock Simulator":
                 hover_data={"iso3": True, "delta_instability": ":.4f"},
             )
             fig_map.update_layout(
-                template="plotly_dark", height=520,
+                template="plotly_white", height=520,
                 margin=dict(l=0, r=0, t=40, b=0),
                 geo=dict(showocean=True, oceancolor="rgb(20,30,50)",
                          showland=True, landcolor="rgb(40,50,70)"),
@@ -896,7 +901,7 @@ elif page == "💥 Shock Simulator":
                 hover_data={"iso3": True, "status": True, "delta": ":.4f"},
             )
             fig.update_layout(
-                template="plotly_dark", height=600,
+                template="plotly_white", height=600,
                 margin=dict(l=0, r=0, t=40, b=0),
                 geo=dict(showocean=True, oceancolor="rgb(20,30,50)",
                          showland=True, landcolor="rgb(40,50,70)"),
@@ -973,7 +978,7 @@ elif page == "💥 Shock Simulator":
                 hover_data={"iso3": True, "delta": ":.4f"},
             )
             fig_map.update_layout(
-                template="plotly_dark", height=500,
+                template="plotly_white", height=500,
                 margin=dict(l=0, r=0, t=40, b=0),
                 geo=dict(showocean=True, oceancolor="rgb(20,30,50)",
                          showland=True, landcolor="rgb(40,50,70)"),
@@ -1048,7 +1053,7 @@ elif page == "🔬 Spectral Diagnostics":
                           annotation_text="Kaiser threshold (eigenvalue = 1)",
                           annotation_position="bottom right")
             fig.update_layout(
-                template="plotly_dark",
+                template="plotly_white",
                 title=f"PCA Scree Plot — {meta.get('n_components', '?')} components retained, "
                       f"{meta.get('cumulative_variance', 0)*100:.1f}% variance explained",
                 xaxis_title="Principal Component Number",
@@ -1093,7 +1098,7 @@ elif page == "🔬 Spectral Diagnostics":
                           annotation_text=f"α = {meta.get('alpha', 0.4):.2f} (stability margin)",
                           annotation_position="bottom right")
             fig.update_layout(
-                template="plotly_dark",
+                template="plotly_white",
                 title=f"Coupling Matrix Eigenvalue Magnitudes (spectral gap = {meta.get('spectral_gap', 0):.4f})",
                 xaxis_title="Eigenvalue Index (sorted descending)",
                 yaxis_title="|λ| — Eigenvalue Magnitude",
@@ -1119,7 +1124,7 @@ elif page == "🔬 Spectral Diagnostics":
                 hovertemplate="Re(λ): %{x:.4f}<br>Im(λ): %{y:.4f}<br>|λ|: %{marker.color:.4f}<extra></extra>",
             ))
             fig2.update_layout(
-                template="plotly_dark",
+                template="plotly_white",
                 title="Eigenvalue Distribution in Complex Plane",
                 xaxis_title="Re(λ) — Real part (magnitude of non-oscillatory decay)",
                 yaxis_title="Im(λ) — Imaginary part (frequency of oscillation)",
@@ -1170,7 +1175,7 @@ elif page == "🔬 Spectral Diagnostics":
                 font=dict(color="#2ecc71"),
             )
             fig.update_layout(
-                template="plotly_dark",
+                template="plotly_white",
                 title="Laplacian Eigenvalue Spectrum",
                 xaxis_title="Index (sorted ascending)",
                 yaxis_title="Eigenvalue λ",
@@ -1192,7 +1197,7 @@ elif page == "🔬 Spectral Diagnostics":
                 hovertemplate="Gap between λ_%{x} and λ_{x-1}: %{y:.4f}<extra></extra>",
             ))
             fig2.update_layout(
-                template="plotly_dark",
+                template="plotly_white",
                 title="Eigengap Δλ — Peaks indicate natural cluster boundaries",
                 xaxis_title="Index (between eigenvalue k−1 and k)",
                 yaxis_title="Gap Δλ",
@@ -1229,7 +1234,7 @@ elif page == "🔬 Spectral Diagnostics":
             fig.update_traces(
                 hovertemplate="<b>Sender (Row):</b> %{y}<br><b>Receiver (Col):</b> %{x}<br><b>Coupling Weight W[i,j]:</b> %{z:.4f}<extra></extra>"
             )
-            fig.update_layout(template="plotly_dark", height=700,
+            fig.update_layout(template="plotly_white", height=700,
                               xaxis_tickangle=-45)
             st.plotly_chart(fig, width="stretch")
             st.caption(
@@ -1243,7 +1248,7 @@ elif page == "🔬 Spectral Diagnostics":
 # PAGE: SPECTRAL EMBEDDING
 # ═══════════════════════════════════════════════════════════════════════════════
 
-elif page == "🌐 Spectral Embedding":
+elif page == "🌐 3D Network Map":
     st.title("Spectral Embedding — Network Topology in 3D")
 
     explainer(
@@ -1325,12 +1330,36 @@ elif page == "🌐 Spectral Embedding":
         title="3D Spectral Embedding — Countries Positioned by Network Role (not geography)",
         **color_kw,
     )
+
+    st.markdown("---")
+    show_edges = st.checkbox("Show Network Couplings (Edges)", value=True)
+    if show_edges:
+        threshold = st.slider("Edge Weight Threshold", 0.0, 0.10, 0.02, step=0.005, 
+                              help="Only show edges stronger than this weight to prevent a visual hairball.")
+        edge_x = []
+        edge_y = []
+        edge_z = []
+        for i in range(n):
+            for j in range(i+1, n):
+                weight = (W[i,j] + W[j,i]) / 2.0
+                if weight > threshold:
+                    edge_x.extend([coords[i, 0], coords[j, 0], None])
+                    edge_y.extend([coords[i, 1], coords[j, 1], None])
+                    edge_z.extend([coords[i, 2] if coords.shape[1] > 2 else 0, coords[j, 2] if coords.shape[1] > 2 else 0, None])
+        if edge_x:
+            fig.add_trace(go.Scatter3d(
+                x=edge_x, y=edge_y, z=edge_z,
+                mode='lines',
+                line=dict(color='rgba(255, 0, 60, 0.2)', width=1),
+                hoverinfo='none',
+                showlegend=False
+            ))
     fig.update_traces(
         marker=dict(size=8, opacity=0.85, line=dict(width=1, color="rgba(255,255,255,0.3)")),
         textfont_size=8,
     )
     fig.update_layout(
-        template="plotly_dark",
+        template="plotly_white",
         height=800,
         scene=dict(
             xaxis_title="v₂ — Fiedler (primary partition)",
