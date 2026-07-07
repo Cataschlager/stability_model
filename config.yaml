@@ -1,0 +1,84 @@
+# Spectral Instability Model — Configuration
+# All parameters exposed here for reproducibility and sensitivity analysis.
+
+# --- Country Universe ---
+country_universe:
+  source: "IMF_WEO"
+  variable: "NGDPD"  # Nominal GDP in current USD
+  top_n: 125
+  output: "data/countries.csv"
+
+# --- Temporal Scope ---
+temporal:
+  window_years: 15       # Number of years in the panel
+  base_year: 2024         # Use 2024 as the model base year (most recent year with complete indicators)
+  forward_fill_max: 2     # Max years to forward-fill governance indicators
+  
+# --- Imputation ---
+imputation:
+  method: "MICE"
+  n_imputations: 10
+  max_iter: 50
+  missingness_threshold: 0.40  # Exclude country-indicator pairs above this
+  regional_restriction: true    # Restrict donors to UN M49 region
+  estimator: "BayesianRidge"
+
+# --- Standardization ---
+standardization:
+  winsorize_lower: 0.01
+  winsorize_upper: 0.99
+  method: "robust_zscore"  # (x - median) / MAD
+
+# --- PCA ---
+pca:
+  kaiser_threshold: 1.0     # Retain components with eigenvalue > this
+  cumulative_variance: 0.80  # Retain until this cumulative variance
+  rotation: "varimax"
+  fsi_correlation_target: 0.70  # Sanity check threshold
+
+# --- Coupling Matrix ---
+coupling:
+  weights:
+    trade: 0.30
+    financial: 0.25
+    geographic: 0.15
+    political: 0.15
+    migration: 0.15
+  geo_contiguity_bonus: 0.5   # β for contiguity in W_geo
+  alliance_weights:
+    defense_pact: 1.0
+    neutrality: 0.5
+    entente: 0.3
+  mid_weight: 1.0              # γ for active MIDs in W_pol
+
+# --- Dynamic Model ---
+dynamics:
+  alpha_default: 0.40          # Coupling strength
+  alpha_calibration:
+    grid_min: 0.05
+    grid_max: 0.95
+    grid_step: 0.01
+    cv_years: 10               # Leave-one-year-out window
+    bootstrap_n: 500
+
+# --- Uncertainty ---
+uncertainty:
+  bootstrap_iterations: 1000
+  confidence_level: 0.90       # 90% CIs
+  dirichlet_concentration: 50  # For coupling weight perturbation
+
+# --- Protest Treatment ---
+protests:
+  include: true
+  relative_weight: 0.5        # Weight relative to other security indicators
+  sensitivity_analysis: true   # Run with and without protests
+
+# --- Random Seed ---
+random_seed: 42
+
+# --- Paths ---
+paths:
+  raw_data: "data/raw"
+  clean_data: "data/clean"
+  output: "data/output"
+  figures: "data/output/figures"

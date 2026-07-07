@@ -1,0 +1,47 @@
+# Data
+data/raw/
+data/clean/
+data/output/
+*.parquet
+*.feather
+
+# Environment
+.env
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build
+dist/
+build/
+*.egg-info/
+
+# Logs
+logs/
+*.log
+
+# Generated report
+REPORT.pdf
+
+# uv
+uv.lock
+
+# Scratch / Test files
+vdem_temp.RData
+vdem_test.csv
+ndgain_test.zip
+fsi_test.xlsx
+fsi_2023.xlsx
+check_fh.py
+scratch_mendeley.py
