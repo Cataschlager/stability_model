@@ -1,71 +1,50 @@
 # Spectral Model of Global Regime Instability
 
-A computational model using eigenvalue/eigenvector decomposition to characterize and simulate regime instability propagation across the top 125 economies by nominal GDP.
+A computational research prototype applying spectral graph theory and network science to model cross-border instability contagion across 125 nations. 
 
 ## Overview
 
-This project constructs a two-layer spectral model:
+This project constructs a two-layer analytical framework to assess geopolitical instability:
 
-1. **Latent Instability Factors (PCA)** — Decomposes a high-dimensional indicator matrix across seven canonical pillars into a low-dimensional instability space, producing composite scores per country.
-2. **Country Coupling Network (Spectral Graph Analysis)** — Builds a directed weighted coupling matrix encoding trade, financial, geographic, political, and migration linkages, then analyzes its spectrum to identify systemic transmitters and receivers of instability.
+1. **Latent Instability Factors (PCA)** — Decomposes a high-dimensional matrix of 50 indicators across 7 canonical pillars (governance, economics, conflict, etc.) into a low-dimensional instability space. The resulting composite score correlates highly (Pearson *r*=0.92) with established benchmarks like the Fragile States Index.
+2. **Country Coupling Network (Spectral Graph Analysis)** — Builds a directed, weighted multiplex coupling matrix encoding trade, financial, geographic, and political linkages. 
 
-A discrete-time dynamic propagation model couples these layers, enabling scenario simulation of how shocks in one country transmit through the global network.
+By applying a discrete-time dynamic propagation model (a Friedkin-Johnsen style mechanism), the system computes a steady-state instability score that accounts for both domestic structural fragility and the stabilizing or destabilizing influence of network neighbors. 
+
+### Key Findings
+* **Structural Inertia Dominates:** Calibration of the network coupling parameter (*α*) via leave-one-year-out cross-validation yields a low optimal value (*α* ≈ 0.05). This indicates that on a 1-year horizon, domestic structural factors overwhelmingly dominate over short-term network contagion effects.
+* **Network Damping:** At empirically calibrated coupling strengths, the network acts primarily as a damping mechanism, pulling extreme instability scores slightly toward the global mean rather than amplifying them.
+* **Centrality Identification:** PageRank and Eigenvector centrality on the multiplex coupling matrix successfully identify systemic hubs (transmitters and receivers) of potential future instability shocks.
 
 ## Quick Start
 
 ```bash
 # Clone and install
-git clone <repo-url> && cd spectral-instability-model
-cp .env.example .env  # Add your API keys
+git clone https://github.com/Cataschlager/stability_model.git
+cd stability_model
+cp .env.example .env  # Add your API keys if you wish to re-download raw data
 make install
 
-# Run full pipeline
+# Run the full analytical pipeline
 make all
 
-# Launch simulation UI
+# Launch the interactive Streamlit dashboard
 make serve
 ```
 
 See [SETUP.md](SETUP.md) for detailed installation and data source configuration.
 
-## Repository Structure
+## Methodology & Documentation
 
-```
-├── README.md              # This file
-├── SETUP.md               # Installation, API keys, environment setup
-├── METHODOLOGY.md         # Full methodological documentation with citations
-├── VALIDATION.md          # Validation results and historical reconstruction
-├── LIMITATIONS.md         # Known limitations and caveats
-├── references.bib         # BibTeX references
-├── Makefile               # Reproducibility: `make all` runs everything
-├── pyproject.toml         # Dependencies (pinned via uv)
-├── data/
-│   ├── raw/               # Immutable source downloads
-│   └── clean/             # Normalized parquet files
-├── ingestion/             # One module per data source
-├── features/              # Indicator construction, imputation, standardization
-├── model/
-│   ├── pca.py             # Latent instability factor analysis
-│   ├── coupling.py        # Country coupling matrix construction
-│   ├── dynamics.py        # Dynamic propagation model
-│   └── calibrate.py       # α calibration via cross-validation
-├── validation/            # Historical event reconstruction, benchmarking
-├── app/                   # Simulation web UI
-├── notebooks/             # Exploratory analysis and figure generation
-└── tests/                 # Unit tests on every transformation
-```
+- [METHODOLOGY.md](METHODOLOGY.md) — Full methodological documentation with mathematical notation.
+- [LIMITATIONS.md](LIMITATIONS.md) — Known caveats, including data missingness and bounds of predictive validity.
+- [references.bib](references.bib) — Academic citations underpinning the model design.
 
-## Key Outputs
+## Interactive Dashboard
 
-- **Composite Instability Index** — Ranked list of 125 countries with bootstrap confidence intervals
-- **Eigenvector Centrality Rankings** — Systemic transmitters and receivers
-- **Interactive Simulator** — Factor shocks, edge shocks, compound scenarios
-- **Spectral Diagnostics** — Eigenvalue plots, scree plots, spectral gap analysis
+The repository includes a Streamlit application (`make serve`) that visualizes the model's outputs:
+- **Most Unstable:** Steady-state scores vs. raw structural scores.
+- **Systemic Transmitters:** Outbound eigenvector centrality.
+- **Most Exposed:** Inbound eigenvector centrality.
+- **World Map:** Geospatial visualization of instability and network metrics.
 
-## License
-
-[TBD]
-
-## Citation
-
-[TBD]
