@@ -1,6 +1,4 @@
-# 1-Minute Reviewer Guide
-
-This document is designed to give Council on Foreign Relations (CFR) reviewers and other readers a rapid, high-level understanding of this repository before diving into the interactive dashboard or technical methodology.
+# Project Brief
 
 ### 1. What is the research question?
 **How do domestic fragilities and cross-border linkages interact to spread or contain global geopolitical instability?** Traditional models often treat countries in isolation; this project seeks to map the global system as an interconnected network to understand where shocks cascade and where they are absorbed.
@@ -25,7 +23,7 @@ The model is built on a 15-year panel data set encompassing 50 indicators for 12
 1.  **Temporal Constraints:** The rigorous data requirements limit the panel to a 15-year window, which prevents backtesting against earlier crises like the 2008 Financial Crisis or the Arab Spring.
 2.  **Coupling Bias:** The network linkages heavily weight physical and economic realities (trade, migration, borders) and may under-represent purely informational or cyber-driven contagion.
 
-### 6. How should a CFR reviewer interpret it?
-Reviewers should interpret this model as a **computational policy prototype**. It is an empirical tool designed to test geopolitical scenarios (e.g., "What happens if a major hub experiences a sudden 3-standard-deviation shock?") rather than a deterministic crystal ball. 
+### 6. How should this model be interpreted?
+This model is designed as a **computational policy prototype**. It is an empirical tool designed to test geopolitical scenarios (e.g., "What happens if a major hub experiences a sudden 3-standard-deviation shock?") rather than a deterministic crystal ball. 
 
 Notably, cross-validation of the model revealed **The Empirical Limits of Contagion**: because the network coupling parameter is relatively low ($\alpha \approx 0.05$), the data proves that domestic structural inertia overwhelmingly dominates international spillovers. In short, the model demonstrates that massive shocks are more likely to be absorbed by neighbors than to trigger global cascading failures.
