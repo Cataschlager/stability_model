@@ -60,7 +60,7 @@ All data used in this model comes from official primary sources. No secondary ag
 - **Granularity:** Country-year panel, 1789–present.
 - **Python method:** `pandas.read_csv()` on downloaded CSV.
 - **Citation:** Coppedge, M. et al. (2024). V-Dem Dataset v14. Varieties of Democracy (V-Dem) Project.
-- **Limitations:** Large file (~1 GB uncompressed). We use the country-year core dataset only.
+- **Limitations:** Large file (~1 GB uncompressed). The country-year core dataset is used exclusively.
 
 #### Polity5 (Center for Systemic Peace)
 
@@ -68,7 +68,7 @@ All data used in this model comes from official primary sources. No secondary ag
 - **Access:** Bulk Excel download from [systemicpeace.org](https://www.systemicpeace.org/inscrdata.html). No API.
 - **Python method:** `pandas.read_excel()`.
 - **Citation:** Marshall, M. G., & Gurr, T. R. (2020). Polity5: Political Regime Characteristics and Transitions, 1800–2018. Center for Systemic Peace.
-- **⚠️ Limitation:** Core dataset coverage effectively ends **~2018**. The project has not been updated since its administrative transition. For years 2019 onward, we supplement with V-Dem regime-type indicators (see §3.1). This introduces a methodological break that is documented in `LIMITATIONS.md`.
+- **⚠️ Limitation:** Core dataset coverage effectively ends **~2018**. The project has not been updated since its administrative transition. For years 2019 onward, V-Dem regime-type indicators are supplemented (see §3.1). This introduces a methodological break that is documented in `LIMITATIONS.md`.
 
 #### Worldwide Governance Indicators (WGI)
 
@@ -92,7 +92,7 @@ All data used in this model comes from official primary sources. No secondary ag
 - **Access:** Bulk CSV/Excel from [transparency.org](https://www.transparency.org/en/cpi).
 - **Python method:** `pandas.read_csv()` or `pandas.read_excel()`.
 - **Citation:** Transparency International (annual). Corruption Perceptions Index.
-- **Limitations:** Methodology changed in 2012 (scale shifted from 0–10 to 0–100). We use post-2012 data only for consistency. Inverted in §3.3.
+- **Limitations:** Methodology changed in 2012 (scale shifted from 0–10 to 0–100). Post-2012 data is used exclusively for consistency. Inverted in §3.3.
 
 #### Fund for Peace - Fragile States Index (FSI)
 
@@ -117,14 +117,14 @@ All data used in this model comes from official primary sources. No secondary ag
 - **Provides:** Fiscal balance % GDP (`GGXCNL_NGDP`), gross government debt % GDP (`GGXWDG_NGDP`), external debt metrics.
 - **Access:** SDMX API (no key) or bulk CSV. Uses `weo` or `imfp` Python packages.
 - **Citation:** International Monetary Fund (biannual). World Economic Outlook Database.
-- **Limitations:** WEO contains both actual data and IMF staff estimates/projections for future years. We use only actual/estimated values, never projections.
+- **Limitations:** WEO contains both actual data and IMF staff estimates/projections for future years. Only actual/estimated values are used; projections are excluded.
 
 #### BIS Consolidated Banking Statistics
 
 - **Provides:** Cross-border claims and liabilities by reporting-country/counterparty-country pair. Used for the financial coupling sub-matrix `W_fin` (§5).
 - **Access:** SDMX API via `sdmx1` package, or bulk CSV from [data.bis.org](https://data.bis.org/). No key required.
 - **Citation:** Bank for International Settlements. Consolidated Banking Statistics.
-- **⚠️ Limitation:** BIS reporting banks cover approximately **30 countries** (mainly OECD + major financial centers). For the remaining ~95 countries in our universe, bilateral financial exposure data is sparse or unavailable. Mitigation: (a) use mirror data where available (if country A reports claims on country B, we infer B's exposure to A's banking sector, though we discount mirror exposures by 0.5 to reflect the uncertainty and asymmetry inherent in inferred exposures), (b) remaining entries set to 0. The `W_fin` sub-matrix is therefore dominated by major financial centers. This limitation is acceptable because financial contagion channels are indeed concentrated in these centers.
+- **⚠️ Limitation:** BIS reporting banks cover approximately **30 countries** (mainly OECD + major financial centers). For the remaining ~95 countries in the model universe, bilateral financial exposure data is sparse or unavailable. Mitigation: (a) use mirror data where available (if country A reports claims on country B, B's exposure to A's banking sector is inferred, though mirror exposures are discounted by 0.5 to reflect the uncertainty and asymmetry inherent in inferred exposures), (b) remaining entries set to 0. The `W_fin` sub-matrix is therefore dominated by major financial centers. This limitation is acceptable because financial contagion channels are indeed concentrated in these centers.
 
 ### 2.3 Conflict & Security
 
@@ -147,7 +147,7 @@ All data used in this model comes from official primary sources. No secondary ag
 - **Access:** REST API with OAuth authentication. Requires myACLED account registration.
 - **Python method:** `requests` with API key + email, or unofficial `acled` package.
 - **Citation:** Raleigh, C. et al. (2010). Introducing ACLED: An Armed Conflict Location and Event Dataset. Journal of Peace Research, 47(5), 651–660.
-- **Usage in model:** We compute rolling 12-month event counts by type per country. ACLED also serves as the **substitute for the Global Terrorism Database** (see below).
+- **Usage in model:** Rolling 12-month event counts by type per country are computed. ACLED also serves as the **substitute for the Global Terrorism Database** (see below).
 
 #### SIPRI Military Expenditure Database
 
@@ -161,8 +161,8 @@ All data used in this model comes from official primary sources. No secondary ag
 - **Original plan:** Use START/GTD for terrorism event counts.
 - **Status as of 2025:** The GTD has moved to **restricted access**. Downloading the full dataset requires a formal access request to START at the University of Maryland, with new DOJ regulations potentially further limiting access.
 - **Substitute:** ACLED's political violence categories (Battles, Explosions/Remote violence, Violence against civilians) cover substantially similar events to what GTD tracked. ACLED's classification does not distinguish "terrorism" as a separate category, but the underlying events (bombings, assassinations, attacks on civilians) are captured.
-- **Loss of fidelity:** We lose (a) the specific "terrorism" label and its associated GTD-specific metadata (weapon type, target type, attack type), and (b) historical data before ACLED's coverage start date (varies by region; Africa from 1997, global from 2016). For the 15-year panel (2009–2024), ACLED's global coverage begins partway through, which introduces a data gap for non-African countries pre-2016.
-- **Mitigation:** For the historical panel, we use UCDP one-sided violence data to fill the pre-2016 gap for non-African countries, since one-sided violence against civilians correlates highly with terrorism events.
+- **Loss of fidelity:** The model omits (a) the specific "terrorism" label and its associated GTD-specific metadata (weapon type, target type, attack type), and (b) historical data before ACLED's coverage start date (varies by region; Africa from 1997, global from 2016). For the 15-year panel (2009–2024), ACLED's global coverage begins partway through, which introduces a data gap for non-African countries pre-2016.
+- **Mitigation:** For the historical panel, UCDP one-sided violence data is used to fill the pre-2016 gap for non-African countries, since one-sided violence against civilians correlates highly with terrorism events.
 
 ### 2.4 Social & Environmental
 
@@ -201,7 +201,7 @@ All data used in this model comes from official primary sources. No secondary ag
 - **Access:** SDMX API via `sdmx1` or `imfp` packages. No API key required.
 - **Python method:** `imfp.imf_dataset("DOT", freq="A", ...)`.
 - **Citation:** International Monetary Fund. Direction of Trade Statistics.
-- **Rationale for choice over UN Comtrade:** DOTS requires no API key, has no rate limits for our scale, and provides the aggregate bilateral trade data we need. UN Comtrade provides commodity-level detail we do not require.
+- **Rationale for choice over UN Comtrade:** DOTS requires no API key, has no rate limits for this scale, and provides the necessary aggregate bilateral trade data. UN Comtrade provides commodity-level detail that is not required.
 
 #### BIS Locational Banking Statistics
 
@@ -235,7 +235,7 @@ All data used in this model comes from official primary sources. No secondary ag
 - **Access:** Bulk Excel from [UN DESA](https://www.un.org/development/desa/pd/content/international-migrant-stock). Complex multi-tab matrices.
 - **Python method:** `pandas.read_excel()` with extensive parsing of matrix format.
 - **Citation:** United Nations, Department of Economic and Social Affairs (2020). International Migrant Stock.
-- **Limitations:** Updated approximately every 5 years (most recent: 2020). We use the most recent available snapshot and hold constant for years between releases.
+- **Limitations:** Updated approximately every 5 years (most recent: 2020). The most recent available snapshot is used and held constant for years between releases.
 
 ---
 
@@ -250,7 +250,7 @@ All series are aligned to **annual frequency** covering the **most recent 15 yea
 - **Slowly-changing governance indicators** (V-Dem, WGI, Freedom House, Polity5): Forward-fill gaps of up to 2 years. This is defensible because institutional characteristics change slowly; a 1-year gap in WGI reporting does not indicate a governance change.
 - **Economic series** (WDI, WEO): Linear interpolation for single-year gaps only. No extrapolation.
 - **Event-based series** (ACLED, UCDP): Aggregated to annual counts. Missing years treated as zero events (conservative assumption documented in `LIMITATIONS.md`).
-- **Polity5 post-2018:** For years after Polity5's coverage ends, we use V-Dem's `v2x_regime` (Regimes of the World ordinal classification) mapped to the Polity2 scale via a crosswalk trained on overlapping years (2000–2018). The crosswalk is a simple ordinal mapping: V-Dem closed autocracy → Polity2 ∈ [−10, −6], electoral autocracy → [−5, 0], electoral democracy → [1, 5], liberal democracy → [6, 10], with the exact value within each bin determined by V-Dem's polyarchy score. This introduces measurement error documented in `LIMITATIONS.md`.
+- **Polity5 post-2018:** For years after Polity5's coverage ends, V-Dem's `v2x_regime` is used (Regimes of the World ordinal classification) mapped to the Polity2 scale via a crosswalk trained on overlapping years (2000–2018). The crosswalk is a simple ordinal mapping: V-Dem closed autocracy → Polity2 ∈ [−10, −6], electoral autocracy → [−5, 0], electoral democracy → [1, 5], liberal democracy → [6, 10], with the exact value within each bin determined by V-Dem's polyarchy score. This introduces measurement error documented in `LIMITATIONS.md`.
 
 ### 3.2 Imputation
 
@@ -259,7 +259,7 @@ We use **Multivariate Imputation by Chained Equations (MICE)** [@vanbuuren2011mi
 **Implementation:**
 - `sklearn.impute.IterativeImputer` with `BayesianRidge` estimator (default MICE specification).
 - `max_iter=50`, `random_state` fixed for reproducibility.
-- `n_imputations=10` - we generate 10 multiply-imputed datasets and pool results following Rubin's rules [@rubin1987multiple].
+- `n_imputations=10` - 10 multiply-imputed datasets are generated and results are pooled following Rubin's rules [@rubin1987multiple].
 
 **Regional restriction:**
 - Imputation donors are restricted to countries within the same **UN M49 region** (e.g., Western Europe, Eastern Africa, South-Eastern Asia). This prevents implausible imputations such as using Nordic governance values to fill missing data for Sahel countries.
@@ -426,7 +426,7 @@ Captures armed conflict, political violence, militarization, and security sector
 | Security Apparatus | FSI | `C1` | Keep |
 | External Intervention | FSI | `X1` | Keep |
 
-> **⚠️ Note on protests:** Protest counts are ambiguous as an instability indicator. Democracies typically have higher protest rates than autocracies, reflecting healthy civic engagement rather than instability. Including protests biases the model toward conflating democratic participation with instability. We include protests in the indicator matrix but assign them a **lower weight within the pillar** (0.5× relative to other indicators) and conduct a sensitivity analysis excluding protests entirely. Results with and without protests are reported in `VALIDATION.md`.
+> **⚠️ Note on protests:** Protest counts are ambiguous as an instability indicator. Democracies typically have higher protest rates than autocracies, reflecting healthy civic engagement rather than instability. Including protests biases the model toward conflating democratic participation with instability. Protests are included in the indicator matrix but assigned a **lower weight within the pillar** (0.5× relative to other indicators) and conduct a sensitivity analysis excluding protests entirely. Results with and without protests are reported in `VALIDATION.md`.
 
 #### Pillar 7: Environmental & Resource Stress
 
@@ -477,7 +477,7 @@ We retain components satisfying **both**:
 1. **Kaiser criterion:** Eigenvalue $\lambda_k > 1$ (i.e., the component explains more variance than any single original variable) [@jolliffe2002pca].
 2. **Cumulative variance ≥ 80%:** $\sum_{k=1}^{r} \lambda_k / \sum_{k=1}^{K} \lambda_k \geq 0.80$.
 
-If these criteria conflict (e.g., Kaiser retains too few components for 80% variance), we use the more conservative criterion (retain more components).
+If these criteria conflict (e.g., Kaiser retains too few components for 80% variance), the more conservative criterion is used (retain more components).
 
 ### 4.3 Varimax Rotation
 
@@ -508,7 +508,7 @@ The leading eigenvector (first principal component scores) should correlate **�
 
 ### 4.6 Interpretation
 
-The rotated components are examined for interpretability by inspecting which indicators load most heavily. We expect (but do not force) components to roughly align with the seven pillars. Cross-loading indicators are noted and discussed.
+The rotated components are examined for interpretability by inspecting which indicators load most heavily. Components are expected (but not forced) to roughly align with the seven pillars. Cross-loading indicators are noted and discussed.
 
 The **"systemic instability axis"** is defined as the first principal component. Countries with the highest scores on this axis are the most unstable along the dominant latent dimension.
 
@@ -597,7 +597,7 @@ This ensures each row sums to 1, making $W$ **row-stochastic**. Substantively, t
 
 ### 5.4 Spectral Analysis of $W$
 
-Since $W$ is non-symmetric, it generally has **complex eigenvalues**. We compute the full eigendecomposition using `numpy.linalg.eig`.
+Since $W$ is non-symmetric, it generally has **complex eigenvalues**. The full eigendecomposition is computed using `numpy.linalg.eig`.
 
 **Key outputs:**
 
@@ -774,7 +774,7 @@ PCA eigenvectors are defined only up to sign, and the ordering of components can
 
 ### 8.3 Outputs
 
-For every reported quantity, we provide the **point estimate** and **90% bootstrap confidence interval** (5th and 95th percentiles):
+For every reported quantity, the **point estimate** and **90% bootstrap confidence interval** are provided (5th and 95th percentiles):
 
 - Country composite instability scores.
 - Country rankings (reported as rank intervals).
@@ -791,7 +791,7 @@ Detailed results are reported in `VALIDATION.md`.
 
 ### 9.1 Historical Event Reconstruction
 
-For each of these episodes, we run the model with that year's exogenous data and verify:
+For each of these episodes, the model is run with that year's exogenous data to verify:
 (a) The affected countries' instability scores rise sharply relative to the prior year.
 (b) The model's "top transmission risks" list correctly identifies the secondary countries.
 
@@ -806,12 +806,12 @@ For each of these episodes, we run the model with that year's exogenous data and
 
 ### 9.2 Rank Correlation with External Indices
 
-Compute Spearman rank correlation between our composite instability index and:
+Compute Spearman rank correlation between the composite instability index and:
 
 1. **Fragile States Index (FSI)** headline score - target: $\rho \geq 0.75$.
 2. **EIU Democracy Index** (inverted, so higher = less democratic = more instability-adjacent) - target: $\rho \geq 0.75$.
 
-If targets are not met, we do **not** adjust the model to fit. Instead, we document the discrepancy, investigate its source (e.g., which countries drive divergence), and explain whether the divergence reflects a genuine modeling insight or a deficiency.
+If targets are not met, the model is **not** adjusted to fit. Instead, the discrepancy is documented, its source is investigated (e.g., which countries drive divergence), and explain whether the divergence reflects a genuine modeling insight or a deficiency.
 
 ### 9.3 Conflict Onset Prediction (AUC)
 

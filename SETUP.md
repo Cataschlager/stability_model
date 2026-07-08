@@ -28,7 +28,7 @@
 | **Git** | 2.x | For cloning the repository. |
 | **Disk space** | ~5 GB | Raw + processed data, virtual environment, and cached artefacts. |
 
-Verify your environment:
+Verify the environment:
 
 ```bash
 python3 --version   # ≥ 3.11
@@ -88,7 +88,7 @@ uv run python -c "import pandas, numpy, scipy, sklearn, statsmodels; print('All 
 
 All API keys and tokens are read from a **`.env`** file at the project root. A template is provided in `.env.example`.
 
-### 3.1 Create your `.env` file
+### 3.1 Create the `.env` file
 
 ```bash
 cp .env.example .env
@@ -96,7 +96,7 @@ cp .env.example .env
 
 ### 3.2 Populate the keys
 
-Open `.env` in your editor and fill in the values obtained by following the registration steps in [§4](#4-data-source-registration-guide).
+Open `.env` in a text editor and fill in the values obtained by following the registration steps in [§4](#4-data-source-registration-guide).
 
 ```dotenv
 # ──────────────────────────────────────────────
@@ -154,10 +154,10 @@ ACLED provides georeferenced event-level data on political violence and protests
 1. Navigate to <https://acleddata.com/register/>.
 2. Create a **myACLED** account. An institutional email (`.edu`, `.ac.uk`, etc.) is strongly recommended - personal-domain emails may be delayed or rejected.
 3. Complete the registration form, specifying *Academic / Research* as the use case.
-4. Confirm your email address.
+4. Confirm the email address.
 5. Log in to <https://acleddata.com/> → **Dashboard** → **API Access**.
-6. Copy your **API key**.
-7. Add both your registered email and the API key to `.env`:
+6. Copy the **API key**.
+7. Add both the registered email and the API key to `.env`:
    ```
    ACLED_EMAIL=you@university.edu
    ACLED_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxx
@@ -192,8 +192,8 @@ UCDP provides battle-related deaths data, armed conflict datasets, and one-sided
 **Steps (API access):**
 
 1. Visit <https://ucdp.uu.se/apidocs/>.
-2. Email the UCDP API maintainer (address listed on the API docs page) requesting an access token. Include your name, institution, and research purpose.
-3. You will receive a token via email (allow 1–5 business days).
+2. Email the UCDP API maintainer (address listed on the API docs page) requesting an access token. Include the applicant's name, institution, and research purpose.
+3. A token will be received via email (allow 1–5 business days).
 4. Add it to `.env`:
    ```
    UCDP_API_TOKEN=your_token_here
@@ -277,7 +277,7 @@ Bilateral trade flow data (import/export by commodity and partner).
 2. Register for an account.
 3. Subscribe to the **Comtrade API** product (free tier).
 4. Wait for approval (you'll receive an email). This can take several days.
-5. Retrieve your subscription key from your profile page.
+5. Retrieve the subscription key from the profile page.
 6. Add to `.env`:
    ```
    COMTRADE_SUBSCRIPTION_KEY=xxxxxxxxxxxxxxxxxxxxxxxx
@@ -402,12 +402,12 @@ python src/main.py
 ### 6.2 ACLED API returns 403 Forbidden
 
 - Verify that `ACLED_EMAIL` matches the email used during registration.
-- Regenerate your API key from the myACLED dashboard if the key has been rotated.
-- ACLED enforces rate limits (~500 requests/min). If you hit the limit, the ingest module retries with exponential back-off automatically.
+- Regenerate the API key from the myACLED dashboard if the key has been rotated.
+- ACLED enforces rate limits (~500 requests/min). If the limit is hit, the ingest module retries with exponential back-off automatically.
 
 ### 6.3 UN Comtrade returns 401 Unauthorized
 
-- Subscription key approval can take several business days. Check your email for approval confirmation.
+- Subscription key approval can take several business days. Check the registered email for approval confirmation.
 - In the meantime, set `USE_IMF_DOTS_FALLBACK=true` in `.env` to use IMF DOTS data instead.
 
 ### 6.4 UCDP API is unavailable
@@ -435,7 +435,7 @@ uv run python -c "import pyarrow; print(pyarrow.__version__)"
 
 ### 6.7 `.env` file not loading
 
-Ensure `python-dotenv` is installed and that your entry point calls `load_dotenv()` before accessing `os.environ`:
+Ensure `python-dotenv` is installed and that the entry point calls `load_dotenv()` before accessing `os.environ`:
 
 ```python
 from dotenv import load_dotenv
@@ -448,7 +448,7 @@ The full V-Dem dataset is ~1 GB uncompressed. The ingest module downloads only t
 
 ### 6.9 Polity5 ↔ V-Dem bridging warnings
 
-If you see warnings about unmapped country-year observations in the Polity–V-Dem crosswalk, check `logs/polity_vdem_bridge.log` for details. Common causes:
+If warnings are observed about unmapped country-year observations in the Polity–V-Dem crosswalk, check `logs/polity_vdem_bridge.log` for details. Common causes:
 - Polity5 uses non-standard country codes for historical states (e.g., Yugoslavia, USSR).
 - V-Dem covers some micro-states that Polity5 does not.
 
