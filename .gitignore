@@ -1,8 +1,10 @@
 # Data
 data/raw/
 data/clean/
-data/output/
-*.parquet
+!data/output/
+!data/output/*.parquet
+!data/output/*.npy
+!data/output/*.csv
 *.feather
 
 # Environment
