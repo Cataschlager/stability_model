@@ -8,6 +8,8 @@ This document is designed to give Council on Foreign Relations (CFR) reviewers a
 ### 2. What does the model measure?
 The model produces a continuous measure of **Systemic Risk**, ranking 125 nations by their vulnerability to both internal deterioration and external contagion. It also maps **Instability Blocs**—groups of countries that share structural vulnerabilities and are tightly coupled enough to experience correlated crises.
 
+![The model's steady-state instability ranking, isolating the 20 most vulnerable nations based on 50 structural and geopolitical indicators.](assets/imagetop20.png)
+
 ### 3. What data does it use?
 The model is built on a 15-year panel data set encompassing 50 indicators for 125 countries. 
 *   **Domestic Indicators:** Sourced from the IMF, World Bank, V-Dem, ACLED, and UCDP (covering political legitimacy, state capacity, economic performance, and security violence).
@@ -16,6 +18,8 @@ The model is built on a 15-year panel data set encompassing 50 indicators for 12
 ### 4. What methods does it use?
 *   **Principal Component Analysis (PCA):** Used to reduce the 50 domestic indicators into a single, robust baseline instability score for each country.
 *   **Spectral Graph Theory:** Applies eigenvalue decomposition, Fiedler vectors, and a modified Friedkin-Johnsen diffusion model to the country-coupling matrix to simulate how shocks propagate across borders. 
+
+![A 3D spectral embedding of the global coupling network, mapping distinct structural communities of instability transmission.](assets/image3d.png)
 
 ### 5. What are the top limitations?
 1.  **Temporal Constraints:** The rigorous data requirements limit the panel to a 15-year window, which prevents backtesting against earlier crises like the 2008 Financial Crisis or the Arab Spring.

@@ -7,7 +7,12 @@ A computational research prototype applying spectral graph theory and network sc
 This project constructs a two-layer analytical framework to assess geopolitical instability:
 
 1. **Latent Instability Factors (PCA)** - Decomposes a high-dimensional matrix of 50 indicators across 7 canonical pillars (governance, economics, conflict, etc.) into a low-dimensional instability space. The resulting composite score correlates highly (Pearson *r*=0.92) with established benchmarks like the Fragile States Index.
+
+![The model's steady-state instability ranking, isolating the 20 most vulnerable nations based on 50 structural and geopolitical indicators.](assets/imagetop20.png)
+
 2. **Country Coupling Network (Spectral Graph Analysis)** - Builds a directed, weighted multiplex coupling matrix encoding trade, financial, geographic, and political linkages. 
+
+![A 3D spectral embedding of the global coupling network, mapping distinct structural communities of instability transmission.](assets/image3d.png)
 
 By applying a discrete-time dynamic propagation model (a Friedkin-Johnsen style mechanism), the system computes a steady-state instability score that accounts for both domestic structural fragility and the stabilizing or destabilizing influence of network neighbors. 
 
