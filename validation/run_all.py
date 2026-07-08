@@ -137,7 +137,7 @@ def main():
             if len(merged) > 10:
                 rho, p = spearmanr(merged["composite_score"], merged["value"])
                 status = "✅ PASS" if abs(rho) >= 0.75 else "⚠️ BELOW TARGET"
-                logger.info("Spearman ρ with FSI: %.3f (p=%.2e) — %s (target ≥ 0.75)", rho, p, status)
+                logger.info("Spearman ρ with FSI: %.3f (p=%.2e) - %s (target ≥ 0.75)", rho, p, status)
 
     logger.info("\n✅ Validation complete.")
 

@@ -65,7 +65,7 @@ def main():
     total = len(connectors_phase1) + len(connectors_phase2)
 
     logger.info("=" * 60)
-    logger.info("SPECTRAL INSTABILITY MODEL — DATA INGESTION")
+    logger.info("SPECTRAL INSTABILITY MODEL - DATA INGESTION")
     logger.info("=" * 60)
 
     # Phase 1

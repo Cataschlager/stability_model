@@ -103,7 +103,7 @@ def validate_episode(episode: dict, scores_panel: pd.DataFrame,
     # Pass if majority of primary countries show increases
     result["status"] = "PASS" if result["primary_increase_rate"] >= 0.5 else "FAIL"
 
-    logger.info("[%s] %s — Primary %.0f%% increased, Secondary %.0f%% increased",
+    logger.info("[%s] %s - Primary %.0f%% increased, Secondary %.0f%% increased",
                  name, result["status"],
                  result["primary_increase_rate"] * 100,
                  result["secondary_increase_rate"] * 100)

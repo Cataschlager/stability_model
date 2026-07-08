@@ -35,7 +35,7 @@ class ACLEDConnector(DataConnector):
     """ACLED Armed Conflict Location & Event Data Project.
 
     New auth system (myACLED, 2025): OAuth2 password-grant.
-    No static API key — authenticate with email + account password
+    No static API key - authenticate with email + account password
     to receive a 24-hour Bearer token.
 
     Required .env variables:
@@ -407,7 +407,7 @@ class UCDPConnector(DataConnector):
 
 
 class UNPopulationConnector(DataConnector):
-    """UN Population Division — demographics via API or bulk download."""
+    """UN Population Division - demographics via API or bulk download."""
 
     source_name = "un_population"
 
@@ -590,7 +590,7 @@ class BISBankingConnector(DataConnector):
 
     source_name = "bis_banking"
 
-    # BIS SDMX REST API — Consolidated Banking Statistics (WS_CBS_PUB)
+    # BIS SDMX REST API - Consolidated Banking Statistics (WS_CBS_PUB)
     # Confirmed working as of 2025-Q4; uses immediate counterparty basis,
     # all instruments, USD, total sector, 2008-present.
     CBS_API_URL = (
@@ -637,13 +637,13 @@ class BISBankingConnector(DataConnector):
             except Exception as e2:
                 logger.warning("[bis] Legacy ZIP %s failed: %s", url, e2)
 
-        logger.warning("[bis] All download attempts failed — place CSV manually in %s", self.raw_dir)
+        logger.warning("[bis] All download attempts failed - place CSV manually in %s", self.raw_dir)
         cache_path.touch()
         return cache_path
 
     def clean(self, raw_path: Path) -> pd.DataFrame:
         if raw_path.stat().st_size < 100:
-            logger.warning("[bis] Empty cache file — returning empty DataFrame")
+            logger.warning("[bis] Empty cache file - returning empty DataFrame")
             return pd.DataFrame(columns=["iso3_i", "iso3_j", "year", "value", "indicator", "source"])
 
         raw = pd.read_csv(raw_path, low_memory=False)
@@ -717,7 +717,7 @@ class BISBankingConnector(DataConnector):
 # ── WHO Global Health Observatory ─────────────────────────────────────────────
 
 class WHOGHOConnector(DataConnector):
-    """WHO Global Health Observatory — OData REST API (no key required).
+    """WHO Global Health Observatory - OData REST API (no key required).
 
     Fetches state capacity proxy indicators: life expectancy, UHC index,
     under-5 mortality. 194 member states, annual.

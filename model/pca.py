@@ -188,7 +188,7 @@ def sanity_check_fsi(composite_scores: np.ndarray, fsi_scores: np.ndarray) -> di
     }
 
     status = "✅ PASS" if result["pass_spearman"] else "⚠️ FAIL"
-    logger.info("FSI sanity check: %s — Pearson r=%.3f (p=%.2e), Spearman ρ=%.3f (p=%.2e)",
+    logger.info("FSI sanity check: %s - Pearson r=%.3f (p=%.2e), Spearman ρ=%.3f (p=%.2e)",
                  status, pr, pp, sr, sp)
     return result
 
@@ -208,9 +208,9 @@ def bootstrap_pca(X: np.ndarray, B: int = 1000, n_components: int | None = None,
 
     Returns:
         dict with:
-            eigenvalues_ci: (n_components, 2) — 5th and 95th percentiles
-            scores_ci: (n_countries, 2) — CI for composite scores
-            composite_bootstrap: (B, n_countries) — all bootstrap composite scores
+            eigenvalues_ci: (n_components, 2) - 5th and 95th percentiles
+            scores_ci: (n_countries, 2) - CI for composite scores
+            composite_bootstrap: (B, n_countries) - all bootstrap composite scores
     """
     rng = np.random.RandomState(random_state)
 

@@ -6,8 +6,8 @@ A computational research prototype applying spectral graph theory and network sc
 
 This project constructs a two-layer analytical framework to assess geopolitical instability:
 
-1. **Latent Instability Factors (PCA)** — Decomposes a high-dimensional matrix of 50 indicators across 7 canonical pillars (governance, economics, conflict, etc.) into a low-dimensional instability space. The resulting composite score correlates highly (Pearson *r*=0.92) with established benchmarks like the Fragile States Index.
-2. **Country Coupling Network (Spectral Graph Analysis)** — Builds a directed, weighted multiplex coupling matrix encoding trade, financial, geographic, and political linkages. 
+1. **Latent Instability Factors (PCA)** - Decomposes a high-dimensional matrix of 50 indicators across 7 canonical pillars (governance, economics, conflict, etc.) into a low-dimensional instability space. The resulting composite score correlates highly (Pearson *r*=0.92) with established benchmarks like the Fragile States Index.
+2. **Country Coupling Network (Spectral Graph Analysis)** - Builds a directed, weighted multiplex coupling matrix encoding trade, financial, geographic, and political linkages. 
 
 By applying a discrete-time dynamic propagation model (a Friedkin-Johnsen style mechanism), the system computes a steady-state instability score that accounts for both domestic structural fragility and the stabilizing or destabilizing influence of network neighbors. 
 
@@ -49,9 +49,9 @@ See [SETUP.md](SETUP.md) for detailed installation and data source configuration
 
 ## Methodology & Documentation
 
-- [METHODOLOGY.md](METHODOLOGY.md) — Full methodological documentation with mathematical notation.
-- [LIMITATIONS.md](LIMITATIONS.md) — Known caveats, including data missingness and bounds of predictive validity.
-- [references.bib](references.bib) — Academic citations underpinning the model design.
+- [METHODOLOGY.md](METHODOLOGY.md) - Full methodological documentation with mathematical notation.
+- [LIMITATIONS.md](LIMITATIONS.md) - Known caveats, including data missingness and bounds of predictive validity.
+- [references.bib](references.bib) - Academic citations underpinning the model design.
 
 ## Interactive Dashboard
 

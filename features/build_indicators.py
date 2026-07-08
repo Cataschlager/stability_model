@@ -109,7 +109,7 @@ def sign_orient(df: pd.DataFrame) -> pd.DataFrame:
                 df.loc[mask, "value"] = -df.loc[mask, "value"]
                 logger.debug("Inverted %s (%d values)", indicator_code, mask.sum())
 
-    # Special handling: current account — take absolute value of deficit
+    # Special handling: current account - take absolute value of deficit
     mask_ca = df["indicator"] == "current_account_pct_gdp"
     if mask_ca.any():
         # Only penalize deficits (negative values become positive; surpluses → 0)

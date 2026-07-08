@@ -3,12 +3,12 @@
 Launch: streamlit run app/streamlit_app.py
 
 Pages:
-  1. Dashboard — metrics, rankings, world map
-  2. World Map — choropleth + 3D globe
-  3. Network Communities — spectral clustering and Fiedler analysis
-  4. Shock Simulator — factor/edge/cascade simulation
-  5. Spectral Diagnostics — scree plots, eigenvalue spectra, heatmaps
-  6. Spectral Embedding — 3D country network visualization
+  1. Dashboard - metrics, rankings, world map
+  2. World Map - choropleth + 3D globe
+  3. Network Communities - spectral clustering and Fiedler analysis
+  4. Shock Simulator - factor/edge/cascade simulation
+  5. Spectral Diagnostics - scree plots, eigenvalue spectra, heatmaps
+  6. Spectral Embedding - 3D country network visualization
 """
 
 import sys
@@ -38,35 +38,46 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
     html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
+    
+    .stMarkdown p, .stMarkdown li {
+        font-family: 'EB Garamond', serif;
+        font-size: 1.15rem;
+    }
+    
     .stMetric { background: #ffffff;
                 border-radius: 0px; padding: 16px; border: 1px solid #e0e6ed; border-left: 4px solid #ff003c; 
                 box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
     h1, h2, h3 { 
+         font-family: 'Inter', sans-serif;
          color: #111111;
          font-weight: 800; 
          letter-spacing: -0.03em;
          text-transform: uppercase;
     }
-    .highlight-red { color: #ff003c; font-weight: 700; }
-    .highlight-green { color: #111111; font-weight: 700; }
+    .highlight-red { color: #ff003c; font-weight: 700; font-family: 'Inter', sans-serif; }
+    .highlight-green { color: #111111; font-weight: 700; font-family: 'Inter', sans-serif; }
+    
     .explainer-box {
+        font-family: 'EB Garamond', serif;
         background: #fdfdfd;
         border-left: 4px solid #ff003c;
         border-radius: 0;
         padding: 16px 20px;
         margin: 8px 0 16px 0;
-        font-size: 0.95rem;
+        font-size: 1.15rem;
         color: #333333;
         line-height: 1.6;
         box-shadow: 0 4px 6px rgba(0,0,0,0.02);
     }
+    
     .term-pill {
         display: inline-block;
         background: #111111;
         border-radius: 0px;
         padding: 1px 8px;
+        font-family: 'Inter', sans-serif;
         font-size: 0.85rem;
         font-weight: 700;
         color: #ffffff;
@@ -210,7 +221,7 @@ st.sidebar.caption("Top 125 Economies by Nominal GDP")
 st.sidebar.markdown(f"""
 <small style='color:rgba(255,255,255,0.4)'>
 Scores reflect structural fragility inferred from {n_ind} indicators across governance,
-economics, security, and civil society — network-propagated via the Friedkin-Johnsen model.
+economics, security, and civil society - network-propagated via the Friedkin-Johnsen model.
 </small>
 """, unsafe_allow_html=True)
 
@@ -221,7 +232,7 @@ economics, security, and civil society — network-propagated via the Friedkin-J
 # ═══════════════════════════════════════════════════════════════════════════════
 
 if page == "📊 Dashboard":
-    st.title("Global Regime Instability — Dashboard")
+    st.title("Global Regime Instability - Dashboard")
 
     explainer(
         "This dashboard summarizes a <b>spectral network model</b> of political regime instability. "
@@ -235,11 +246,11 @@ if page == "📊 Dashboard":
     )
 
     col1, col2, col3, col4 = st.columns(4)
-    col1.metric("Countries", meta.get("n_countries", "—"),
+    col1.metric("Countries", meta.get("n_countries", "-"),
                 help="Number of countries in the model (top 125 by nominal GDP).")
-    col2.metric("Indicators", meta.get("n_indicators", "—"),
+    col2.metric("Indicators", meta.get("n_indicators", "-"),
                 help="Number of input data indicators used across governance, economics, conflict, and civil society.")
-    col3.metric("PCA Components", meta.get("n_components", "—"),
+    col3.metric("PCA Components", meta.get("n_components", "-"),
                 help="Number of principal components retained (Kaiser criterion + ≥80% variance explained).")
     alpha_val = meta.get('alpha', 0)
     alpha_str = f"{alpha_val:.3f}"
@@ -253,9 +264,9 @@ if page == "📊 Dashboard":
     col5.metric("Spectral Radius ρ(W)", f"{meta.get('spectral_radius_W', 0):.4f}",
                 help="The largest eigenvalue magnitude of the coupling matrix W. For a row-stochastic W this equals 1. Stability requires α·ρ(W) < 1.")
     col6.metric("Spectral Gap", f"{meta.get('spectral_gap', 0):.4f}",
-                help="The gap between the two largest eigenvalue magnitudes of W. A large gap indicates one dominant propagation mode — shocks spread uniformly. A small gap means multiple propagation pathways exist.")
-    col7.metric("Communities", meta.get("n_communities", "—"),
-                help="Number of instability blocs detected by spectral clustering — groups of countries whose coupling structure makes them likely to experience correlated instability.")
+                help="The gap between the two largest eigenvalue magnitudes of W. A large gap indicates one dominant propagation mode - shocks spread uniformly. A small gap means multiple propagation pathways exist.")
+    col7.metric("Communities", meta.get("n_communities", "-"),
+                help="Number of instability blocs detected by spectral clustering - groups of countries whose coupling structure makes them likely to experience correlated instability.")
     col8.metric("Modularity", f"{meta.get('modularity', 0):.4f}",
                 help="Newman modularity Q ∈ [-1, 1]. Positive values indicate the communities are meaningfully denser internally than you'd expect by chance. Q > 0.3 is generally considered 'good' community structure.")
 
@@ -308,7 +319,7 @@ if page == "📊 Dashboard":
         explainer(
             "<b>Systemic transmitters</b> are countries whose instability, if it spikes, would "
             "propagate most strongly to other countries through the coupling network. This is measured "
-            "by <b>eigenvector centrality</b> on the raw (non-normalised) coupling matrix — a country "
+            "by <b>eigenvector centrality</b> on the raw (non-normalised) coupling matrix - a country "
             "scores highly if it is strongly connected to other highly-connected countries. "
             "Think of it as 'which countries are hubs in the instability transmission network?' "
             "The <b>PageRank</b> column shows an alternative centrality measure (like Google's original "
@@ -344,7 +355,7 @@ if page == "📊 Dashboard":
         explainer(
             "<b>Most exposed countries</b> are those whose steady-state instability level is "
             "most sensitive to instability shocks arriving from other countries in the network. "
-            "This is the <em>inbound</em> eigenvector centrality — measured on the transpose of "
+            "This is the <em>inbound</em> eigenvector centrality - measured on the transpose of "
             "the coupling matrix, capturing who is on the receiving end of instability flows. "
             "A country can be both a transmitter and a receiver, or specialise in one role."
         )
@@ -382,7 +393,7 @@ if page == "📊 Dashboard":
 # ═══════════════════════════════════════════════════════════════════════════════
 
 elif page == "🗺️ World Map":
-    st.title("Global Instability — World Map")
+    st.title("Global Instability - World Map")
 
     explainer(
         "Each country is shaded according to the selected metric. Hover over a country to see "
@@ -420,7 +431,7 @@ elif page == "🗺️ World Map":
             "Like the original web PageRank, a country scores highly if it receives many links "
             "from other high-scoring countries. Major economic hubs (USA, DEU, CHN) dominate.",
         "Outbound Centrality":
-            "Eigenvector centrality on the raw coupling matrix — how much instability a country "
+            "Eigenvector centrality on the raw coupling matrix - how much instability a country "
             "could push outward to the rest of the network.",
         "Inbound Centrality":
             "How exposed a country is to instability flowing in from the rest of the network.",
@@ -430,7 +441,7 @@ elif page == "🗺️ World Map":
             "eigenvalue. Countries with similar values cluster together structurally. "
             "Positive (red) vs. negative (blue) indicates the natural binary partition of the network.",
         "Community":
-            "Discrete community membership from spectral clustering — countries in the same community "
+            "Discrete community membership from spectral clustering - countries in the same community "
             "are more tightly coupled and likely to experience correlated instability dynamics.",
     }
 
@@ -531,8 +542,8 @@ elif page == "🔗 Network Communities":
     explainer(
         "The coupling matrix W describes how each country transmits instability to others. "
         "This page uses <b>spectral graph theory</b> to uncover the hidden community structure "
-        "of that network — which countries are tightly coupled and would likely experience "
-        "correlated instability events — and to measure how resilient the network is to shocks."
+        "of that network - which countries are tightly coupled and would likely experience "
+        "correlated instability events - and to measure how resilient the network is to shocks."
     )
 
     tab1, tab2, tab3 = st.tabs(["🏘️ Instability Blocs", "〰️ Fiedler Partition", "📈 Network Metrics"])
@@ -543,7 +554,7 @@ elif page == "🔗 Network Communities":
             "coupled to each other than to the rest of the world. The algorithm works by computing "
             "the eigenvectors of the <em>normalised Laplacian</em> of the coupling matrix, "
             "projecting countries into that eigenvector space, and then running k-means. "
-            "The number of blocs k is chosen automatically via the <em>eigengap heuristic</em> — "
+            "The number of blocs k is chosen automatically via the <em>eigengap heuristic</em> - "
             "we look for the largest 'jump' in the eigenvalue sequence, which signals the natural "
             "number of clusters. "
             f"<b>Modularity Q = {meta.get('modularity', 0):.3f}</b>: values above 0.3 indicate "
@@ -557,7 +568,7 @@ elif page == "🔗 Network Communities":
                 color="cluster",
                 color_discrete_sequence=px.colors.qualitative.Set1,
                 projection="natural earth",
-                title=f"Instability Blocs — {meta.get('n_communities', '?')} Communities "
+                title=f"Instability Blocs - {meta.get('n_communities', '?')} Communities "
                       f"(Modularity Q = {meta.get('modularity', 0):.3f})",
                 hover_name="country_name",
                 hover_data={"iso3": True, "cluster": True, "country_name": False},
@@ -581,7 +592,7 @@ elif page == "🔗 Network Communities":
                 members_df = comm_df[comm_df["cluster"] == cid]
                 member_names = [f"{row['country_name']} ({row['iso3']})"
                                 for _, row in members_df.iterrows()]
-                with st.expander(f"**Community {cid}** — {len(member_names)} countries"):
+                with st.expander(f"**Community {cid}** - {len(member_names)} countries"):
                     st.write(", ".join(member_names))
 
     with tab2:
@@ -607,7 +618,7 @@ elif page == "🔗 Network Communities":
                 fiedler_sorted, x="label", y="fiedler_vector",
                 color="fiedler_vector",
                 color_continuous_scale="RdBu",
-                title="Fiedler Vector — Countries Ordered by Network Partition Value",
+                title="Fiedler Vector - Countries Ordered by Network Partition Value",
                 labels={"fiedler_vector": "Fiedler Component (v₂)",
                         "label": "Country"},
                 hover_name="country_name",
@@ -632,7 +643,7 @@ elif page == "🔗 Network Communities":
                 color="fiedler_vector",
                 color_continuous_scale="RdBu",
                 projection="natural earth",
-                title="Fiedler Vector — Geospatial View (Red = positive bloc, Blue = negative bloc)",
+                title="Fiedler Vector - Geospatial View (Red = positive bloc, Blue = negative bloc)",
                 hover_name="country_name",
                 hover_data={"iso3": True, "fiedler_vector": ":.4f", "country_name": False},
             )
@@ -654,7 +665,7 @@ elif page == "🔗 Network Communities":
             "<b>PageRank</b> (left chart): adapted from the original Google search algorithm. "
             "A country receives a high PageRank if it is connected to many other high-PageRank "
             "countries in the coupling network. In this model, PageRank measures which countries "
-            "are the most central <em>hubs</em> for instability transmission — major economies "
+            "are the most central <em>hubs</em> for instability transmission - major economies "
             "with dense trade and political linkages dominate. "
             "<br><br>"
             "<b>Betweenness centrality</b> (right chart): measures how often a country sits on "
@@ -733,7 +744,7 @@ elif page == "💥 Shock Simulator":
         "The system converges to a new equilibrium (steady state) after the shock is applied."
     )
     
-    st.info("**Key Finding — The Empirical Limits of Contagion:** Popular narratives often overstate the risk of global domino effects. Because our rigorous empirical cross-validation calibrated the network coupling parameter (*α*) to ~0.05, the data shows that **domestic structural inertia overwhelmingly dominates international spillovers over a 1-year horizon.** While the network accurately maps *how* instability transmits, the low coupling strength means massive shocks are largely absorbed by the domestic resilience of neighboring states, rather than causing global cascading failure.")
+    st.info("**Key Finding - The Empirical Limits of Contagion:** Popular narratives often overstate the risk of global domino effects. Because our rigorous empirical cross-validation calibrated the network coupling parameter (*α*) to ~0.05, the data shows that **domestic structural inertia overwhelmingly dominates international spillovers over a 1-year horizon.** While the network accurately maps *how* instability transmits, the low coupling strength means massive shocks are largely absorbed by the domestic resilience of neighboring states, rather than causing global cascading failure.")
 
     if "W" not in data or "steady_state" not in data:
         st.warning("Model outputs required. Run `make model` first.")
@@ -847,7 +858,7 @@ elif page == "💥 Shock Simulator":
     elif sim_type == "Cascade Analysis":
         explainer(
             "<b>Cascade Analysis</b>: tests whether a shock to one country triggers a "
-            "<em>cascade</em> — a chain reaction where the initial shock pushes neighbours "
+            "<em>cascade</em> - a chain reaction where the initial shock pushes neighbours "
             "above a crisis threshold, and those neighbours in turn push their neighbours over. "
             "The <em>crisis threshold</em> is set as a percentile of the current instability "
             "distribution (e.g. 90th percentile = only the top 10% most fragile states are "
@@ -917,7 +928,7 @@ elif page == "💥 Shock Simulator":
                 } for i in result["newly_crossed"]])
                 st.dataframe(crossed_df, width="stretch", hide_index=True)
             else:
-                st.success("No countries crossed the crisis threshold — the shock was contained.")
+                st.success("No countries crossed the crisis threshold - the shock was contained.")
 
     elif sim_type == "Edge Shock":
         explainer(
@@ -960,7 +971,7 @@ elif page == "💥 Shock Simulator":
                 "Spectral Radius Change",
                 f"{result['new_spectrum']['spectral_radius']:.4f}",
                 delta=f"{result['new_spectrum']['spectral_radius'] - result['orig_spectrum']['spectral_radius']:+.4f}",
-                help="Change in the dominant eigenvalue of W — measures overall network stability.",
+                help="Change in the dominant eigenvalue of W - measures overall network stability.",
             )
             col_y.metric(
                 "Max Country Impact",
@@ -1000,7 +1011,7 @@ elif page == "🔬 Spectral Diagnostics":
     st.title("Spectral Diagnostics")
 
     explainer(
-        "This page exposes the mathematical 'internals' of the model — the eigenvalue spectra "
+        "This page exposes the mathematical 'internals' of the model - the eigenvalue spectra "
         "that determine how instability compresses, propagates, and clusters. Understanding "
         "eigenvalues helps assess whether the model is well-specified and whether the network "
         "has meaningful structure."
@@ -1015,11 +1026,11 @@ elif page == "🔬 Spectral Diagnostics":
         explainer(
             "<b>PCA Scree Plot</b>: Principal Component Analysis decomposes the 19-indicator matrix "
             "into orthogonal 'directions of variance' (principal components). Each bar shows the "
-            "<b>eigenvalue</b> of a component — how much variance it explains. "
+            "<b>eigenvalue</b> of a component - how much variance it explains. "
             "The <b>Kaiser threshold (eigenvalue > 1)</b> is the classic rule for retaining components: "
             "only keep components that explain more variance than a single raw indicator would. "
             "The model retains the components above this line. A sharply declining scree curve "
-            "is healthy — it means the first few components capture most of the information."
+            "is healthy - it means the first few components capture most of the information."
         )
         if "pca_eigenvalues" in data:
             evals = data["pca_eigenvalues"]
@@ -1054,7 +1065,7 @@ elif page == "🔬 Spectral Diagnostics":
                           annotation_position="bottom right")
             fig.update_layout(
                 template="plotly_white",
-                title=f"PCA Scree Plot — {meta.get('n_components', '?')} components retained, "
+                title=f"PCA Scree Plot - {meta.get('n_components', '?')} components retained, "
                       f"{meta.get('cumulative_variance', 0)*100:.1f}% variance explained",
                 xaxis_title="Principal Component Number",
                 yaxis_title="Eigenvalue",
@@ -1075,7 +1086,7 @@ elif page == "🔬 Spectral Diagnostics":
             "dissipate. A large <em>spectral gap</em> (fast drop from λ₁ to λ₂) means the "
             "network has one dominant propagation mode and shocks spread uniformly. "
             "<br><br>"
-            "• <b>Complex plane plot (bottom)</b>: the unit circle is the stability boundary — "
+            "• <b>Complex plane plot (bottom)</b>: the unit circle is the stability boundary - "
             "all eigenvalues of a row-stochastic W lie inside or on it. Complex eigenvalues "
             "(off the real axis) indicate oscillatory propagation patterns. Clustering near the "
             "origin = fast decay; clustering near the unit circle = slow decay = long memory."
@@ -1101,7 +1112,7 @@ elif page == "🔬 Spectral Diagnostics":
                 template="plotly_white",
                 title=f"Coupling Matrix Eigenvalue Magnitudes (spectral gap = {meta.get('spectral_gap', 0):.4f})",
                 xaxis_title="Eigenvalue Index (sorted descending)",
-                yaxis_title="|λ| — Eigenvalue Magnitude",
+                yaxis_title="|λ| - Eigenvalue Magnitude",
                 height=400,
             )
             st.plotly_chart(fig, width="stretch")
@@ -1126,8 +1137,8 @@ elif page == "🔬 Spectral Diagnostics":
             fig2.update_layout(
                 template="plotly_white",
                 title="Eigenvalue Distribution in Complex Plane",
-                xaxis_title="Re(λ) — Real part (magnitude of non-oscillatory decay)",
-                yaxis_title="Im(λ) — Imaginary part (frequency of oscillation)",
+                xaxis_title="Re(λ) - Real part (magnitude of non-oscillatory decay)",
+                yaxis_title="Im(λ) - Imaginary part (frequency of oscillation)",
                 height=520,
                 xaxis=dict(scaleanchor="y", range=[-1.15, 1.15]),
                 yaxis=dict(range=[-1.15, 1.15]),
@@ -1198,7 +1209,7 @@ elif page == "🔬 Spectral Diagnostics":
             ))
             fig2.update_layout(
                 template="plotly_white",
-                title="Eigengap Δλ — Peaks indicate natural cluster boundaries",
+                title="Eigengap Δλ - Peaks indicate natural cluster boundaries",
                 xaxis_title="Index (between eigenvalue k−1 and k)",
                 yaxis_title="Gap Δλ",
                 height=350,
@@ -1212,7 +1223,7 @@ elif page == "🔬 Spectral Diagnostics":
 
     with tab4:
         explainer(
-            "<b>Coupling matrix heatmap</b>: shows the raw coupling strength W[i, j] — "
+            "<b>Coupling matrix heatmap</b>: shows the raw coupling strength W[i, j] - "
             "how strongly country i's instability affects country j's. Each row sums to 1 "
             "(row-stochastic). Brighter cells = stronger coupling. Hover to see exact values. "
             "Visible block structure along the diagonal is evidence of the community structure "
@@ -1228,7 +1239,7 @@ elif page == "🔬 Spectral Diagnostics":
                 W_disp[:n_show, :n_show],
                 x=labels, y=labels,
                 color_continuous_scale="Viridis",
-                title=f"Coupling Matrix W — top {n_show} countries (row = sender, col = receiver)",
+                title=f"Coupling Matrix W - top {n_show} countries (row = sender, col = receiver)",
                 labels={"color": "Coupling Weight W[i,j]"},
             )
             fig.update_traces(
@@ -1249,16 +1260,16 @@ elif page == "🔬 Spectral Diagnostics":
 # ═══════════════════════════════════════════════════════════════════════════════
 
 elif page == "🌐 3D Network Map":
-    st.title("Spectral Embedding — Network Topology in 3D")
+    st.title("Spectral Embedding - Network Topology in 3D")
 
     explainer(
         "<b>What is spectral embedding?</b> Instead of placing countries on a geographic map, "
         "we position them based on their <em>structural role</em> in the coupling network. "
         "We use the second, third, and fourth eigenvectors of the Laplacian (v₂, v₃, v₄) as "
-        "3D coordinates — this is called the <b>spectral embedding</b>. "
+        "3D coordinates - this is called the <b>spectral embedding</b>. "
         "<br><br>"
-        "Countries that <b>cluster together</b> in this space share similar coupling patterns — "
-        "they transmit and receive instability in similar ways — even if they are geographically "
+        "Countries that <b>cluster together</b> in this space share similar coupling patterns - "
+        "they transmit and receive instability in similar ways - even if they are geographically "
         "distant. For example, two small open economies with similar trade partner profiles will "
         "cluster together even if they are on opposite sides of the world. "
         "<br><br>"
@@ -1327,7 +1338,7 @@ elif page == "🌐 3D Network Map":
         text="iso3",
         hover_name="country_name",
         hover_data={"iso3": True, "x": ":.4f", "y": ":.4f", "z": ":.4f", "country_name": False},
-        title="3D Spectral Embedding — Countries Positioned by Network Role (not geography)",
+        title="3D Spectral Embedding - Countries Positioned by Network Role (not geography)",
         **color_kw,
     )
 
@@ -1362,9 +1373,9 @@ elif page == "🌐 3D Network Map":
         template="plotly_white",
         height=800,
         scene=dict(
-            xaxis_title="v₂ — Fiedler (primary partition)",
-            yaxis_title="v₃ — Secondary structural dimension",
-            zaxis_title="v₄ — Tertiary structural dimension",
+            xaxis_title="v₂ - Fiedler (primary partition)",
+            yaxis_title="v₃ - Secondary structural dimension",
+            zaxis_title="v₄ - Tertiary structural dimension",
             xaxis=dict(backgroundcolor="rgb(20,30,50)"),
             yaxis=dict(backgroundcolor="rgb(20,30,50)"),
             zaxis=dict(backgroundcolor="rgb(20,30,50)"),

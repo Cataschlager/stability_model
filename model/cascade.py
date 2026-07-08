@@ -241,7 +241,7 @@ def domino_sequence(W: np.ndarray, s: np.ndarray, alpha: float,
     At each step, any country crossing the threshold also becomes a
     source of instability, amplifying its effect on neighbors.
 
-    This is different from the linear steady-state calculation — it
+    This is different from the linear steady-state calculation - it
     models a nonlinear chain reaction.
 
     Args:
@@ -287,7 +287,7 @@ def domino_sequence(W: np.ndarray, s: np.ndarray, alpha: float,
         new_fallen = []
         for i in range(n):
             if i not in fallen and current_ss[i] > threshold:
-                # This country crossed threshold — add amplification
+                # This country crossed threshold - add amplification
                 s_current[i] += 0.5 * shock_magnitude  # Secondary shock
                 new_fallen.append(i)
 

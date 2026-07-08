@@ -1,4 +1,4 @@
-"""Dynamic propagation model — Friedkin-Johnsen with stochastic perturbation.
+"""Dynamic propagation model - Friedkin-Johnsen with stochastic perturbation.
 
 x(t+1) = α·W·x(t) + (1-α)·s + η(t)
 
@@ -29,7 +29,7 @@ def check_stability(W: np.ndarray, alpha: float) -> dict:
     stable = bool(effective < 1.0)
     margin = float(1.0 - effective)
 
-    logger.info("Stability: α=%.3f, ρ(W)=%.4f, α·ρ(W)=%.4f — %s (margin=%.4f)",
+    logger.info("Stability: α=%.3f, ρ(W)=%.4f, α·ρ(W)=%.4f - %s (margin=%.4f)",
                  alpha, rho, effective, "STABLE" if stable else "UNSTABLE", margin)
 
     return {
@@ -269,7 +269,7 @@ def compound_scenario(W: np.ndarray, s: np.ndarray, alpha: float,
 
 def sensitivity_decomposition(W: np.ndarray, alpha: float,
                                target_country: int) -> np.ndarray:
-    """Extract column i of (I - αW)^(-1) — sensitivity of all countries to target.
+    """Extract column i of (I - αW)^(-1) - sensitivity of all countries to target.
 
     ∂x*_j / ∂s_i for all j given a unit increase in country i's baseline.
 

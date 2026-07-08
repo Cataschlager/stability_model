@@ -86,7 +86,7 @@ class Polity5Connector(DataConnector):
             sub["indicator"] = ind_name
             sub["source"] = "POLITY5"
             sub["value"] = pd.to_numeric(sub["value"], errors="coerce")
-            # Polity uses -66, -77, -88 for special codes — treat as missing
+            # Polity uses -66, -77, -88 for special codes - treat as missing
             sub.loc[sub["value"].isin([-66, -77, -88]), "value"] = pd.NA
             frames.append(sub[["iso3", "year", "indicator", "value", "source"]].dropna(subset=["iso3"]))
 

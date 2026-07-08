@@ -55,7 +55,7 @@ class DataConnector(ABC):
             if self.countries_path.exists():
                 self._countries_df = pd.read_csv(self.countries_path)
             else:
-                logger.warning("countries.csv not found at %s — run IMF WEO connector first.", self.countries_path)
+                logger.warning("countries.csv not found at %s - run IMF WEO connector first.", self.countries_path)
                 self._countries_df = pd.DataFrame(columns=["iso3", "country_name", "gdp_nominal_usd", "gdp_year"])
         return self._countries_df
 

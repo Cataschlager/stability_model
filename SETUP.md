@@ -1,4 +1,4 @@
-# SETUP.md — Spectral Instability Model
+# SETUP.md - Spectral Instability Model
 
 > Installation, data-source registration, environment configuration, and pipeline execution.
 
@@ -100,7 +100,7 @@ Open `.env` in your editor and fill in the values obtained by following the regi
 
 ```dotenv
 # ──────────────────────────────────────────────
-# Spectral Instability Model — Environment Vars
+# Spectral Instability Model - Environment Vars
 # ──────────────────────────────────────────────
 
 # ACLED (Armed Conflict Location & Event Data)
@@ -125,10 +125,10 @@ FAOSTAT_JWT_TOKEN=your_faostat_jwt_token
 COMTRADE_SUBSCRIPTION_KEY=your_comtrade_subscription_key
 
 # ──── No key required (leave as-is) ────
-# IMF WEO / DOTS — public SDMX API
-# World Bank WDI / WGI — public REST API (wbgapi)
+# IMF WEO / DOTS - public SDMX API
+# World Bank WDI / WGI - public REST API (wbgapi)
 # V-Dem, Polity5, Freedom House, TI CPI, FSI,
-# BIS, SIPRI, ND-GAIN, CEPII, COW — bulk download
+# BIS, SIPRI, ND-GAIN, CEPII, COW - bulk download
 ```
 
 > **Security note:** Never commit `.env` to version control. The `.gitignore` already excludes it.
@@ -152,7 +152,7 @@ ACLED provides georeferenced event-level data on political violence and protests
 **Steps:**
 
 1. Navigate to <https://acleddata.com/register/>.
-2. Create a **myACLED** account. An institutional email (`.edu`, `.ac.uk`, etc.) is strongly recommended — personal-domain emails may be delayed or rejected.
+2. Create a **myACLED** account. An institutional email (`.edu`, `.ac.uk`, etc.) is strongly recommended - personal-domain emails may be delayed or rejected.
 3. Complete the registration form, specifying *Academic / Research* as the use case.
 4. Confirm your email address.
 5. Log in to <https://acleddata.com/> → **Dashboard** → **API Access**.
@@ -187,7 +187,7 @@ UCDP provides battle-related deaths data, armed conflict datasets, and one-sided
 | Auth method | Access token (Bearer header) |
 | Cost | Free |
 | Turnaround | Variable (email-based request) |
-| Bulk alternative | CSV downloads at <https://ucdp.uu.se/downloads/> — **no auth required** |
+| Bulk alternative | CSV downloads at <https://ucdp.uu.se/downloads/> - **no auth required** |
 
 **Steps (API access):**
 
@@ -199,7 +199,7 @@ UCDP provides battle-related deaths data, armed conflict datasets, and one-sided
    UCDP_API_TOKEN=your_token_here
    ```
 
-**Fallback (bulk CSV — no token required):**
+**Fallback (bulk CSV - no token required):**
 
 If the API token is not yet available, the pipeline can ingest bulk CSV files directly:
 
@@ -240,7 +240,7 @@ Agricultural production, food prices, land use, trade, and emissions data.
 | Auth method | JWT Bearer token |
 | Cost | Free |
 | Turnaround | Instant upon account creation |
-| Bulk alternative | <https://www.fao.org/faostat/en/#data> — bulk CSV download, **no auth** |
+| Bulk alternative | <https://www.fao.org/faostat/en/#data> - bulk CSV download, **no auth** |
 
 **Steps (API access):**
 
@@ -269,7 +269,7 @@ Bilateral trade flow data (import/export by commodity and partner).
 | Auth method | Subscription key (header: `Ocp-Apim-Subscription-Key`) |
 | Cost | Free tier available (~100 calls/day); premium tiers also available |
 | Turnaround | Account creation is instant; **key approval may take 1–5 business days** |
-| Alternative | IMF Direction of Trade Statistics (DOTS) via `imfp` — **no key needed** |
+| Alternative | IMF Direction of Trade Statistics (DOTS) via `imfp` - **no key needed** |
 
 **Steps:**
 
@@ -283,7 +283,7 @@ Bilateral trade flow data (import/export by commodity and partner).
    COMTRADE_SUBSCRIPTION_KEY=xxxxxxxxxxxxxxxxxxxxxxxx
    ```
 
-**Alternative — IMF DOTS (no key):**
+**Alternative - IMF DOTS (no key):**
 
 If Comtrade approval is pending, the pipeline falls back to IMF Direction of Trade Statistics via the `imfp` package, which requires no authentication:
 
@@ -454,7 +454,7 @@ If you see warnings about unmapped country-year observations in the Polity–V-D
 
 ---
 
-## Quick Reference — Environment Variables
+## Quick Reference - Environment Variables
 
 | Variable | Required? | Source |
 |---|---|---|

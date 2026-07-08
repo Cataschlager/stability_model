@@ -33,7 +33,7 @@ def _fuzzy_iso3(name: str) -> str | None:
 
 
 class IMFDOTSConnector(DataConnector):
-    """IMF Direction of Trade Statistics — bilateral trade flows."""
+    """IMF Direction of Trade Statistics - bilateral trade flows."""
 
     source_name = "imf_dots"
 
@@ -56,7 +56,7 @@ class IMFDOTSConnector(DataConnector):
             frames = []
             country_list = self.country_codes if self.country_codes else []
 
-            # Use IMTS (International Trade in Goods) — DOT was deprecated
+            # Use IMTS (International Trade in Goods) - DOT was deprecated
             database_id = "IMTS"
 
             # Fetch in batches to avoid API limits
@@ -147,7 +147,7 @@ class IMFDOTSConnector(DataConnector):
 
 
 class CEPIIConnector(DataConnector):
-    """CEPII GeoDist database — bilateral distance, contiguity, language, colonial history."""
+    """CEPII GeoDist database - bilateral distance, contiguity, language, colonial history."""
 
     source_name = "cepii"
 
@@ -355,7 +355,7 @@ class UNMigrantConnector(DataConnector):
                 logger.info("[migrant] Downloaded %d bytes", len(resp.content))
             else:
                 logger.warning(
-                    "[migrant] Download failed (status=%s, size=%d) — "
+                    "[migrant] Download failed (status=%s, size=%d) - "
                     "place xlsx manually in %s",
                     resp.status_code, len(resp.content), self.raw_dir,
                 )

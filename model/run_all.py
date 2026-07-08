@@ -1,4 +1,4 @@
-"""Model orchestrator — runs PCA → coupling → calibrate → dynamics.
+"""Model orchestrator - runs PCA → coupling → calibrate → dynamics.
 
 Usage: python -m model.run_all
 """
@@ -26,7 +26,7 @@ def main():
     output_dir.mkdir(parents=True, exist_ok=True)
 
     logger.info("=" * 60)
-    logger.info("SPECTRAL MODEL — FULL PIPELINE")
+    logger.info("SPECTRAL MODEL - FULL PIPELINE")
     logger.info("=" * 60)
 
     # ── Step 1: Load indicator matrix ────────────────────────────────────
@@ -112,7 +112,7 @@ def main():
         logger.info("Trade channel: using IMF DOTS bilateral data.")
     else:
         # Gravity model fallback using GDP data
-        logger.info("No DOTS data — using gravity model (GDP × distance^-β).")
+        logger.info("No DOTS data - using gravity model (GDP × distance^-β).")
         gdp_map = {}
         countries_csv = PROJECT_ROOT / "data" / "countries.csv"
         if countries_csv.exists():
@@ -157,10 +157,10 @@ def main():
                 logger.info("Financial channel: GDP growth correlation proxy.")
             else:
                 sub_matrices["financial"] = np.zeros((n, n))
-                logger.warning("No GDP growth data — financial channel zeroed.")
+                logger.warning("No GDP growth data - financial channel zeroed.")
         else:
             sub_matrices["financial"] = np.zeros((n, n))
-            logger.warning("No WDI data — financial channel zeroed.")
+            logger.warning("No WDI data - financial channel zeroed.")
 
     # ── Political: always use embedded IGO co-membership ──
     sub_matrices["political"] = build_political_coupling(countries)
@@ -175,7 +175,7 @@ def main():
         pop_df = pd.read_csv(countries_csv) if countries_csv.exists() else pd.DataFrame()
         sub_matrices["migration"] = build_migration_matrix(migrant_df, pop_df, countries)
     else:
-        logger.info("No migration data — redistributing weight to trade and geographic.")
+        logger.info("No migration data - redistributing weight to trade and geographic.")
         # Redistribute migration weight (0.15) → trade (+0.08), geographic (+0.07)
         coupling_weights = dict(coupling_weights)  # Copy
         mig_weight = coupling_weights.pop("migration", 0.15)

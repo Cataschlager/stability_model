@@ -55,7 +55,7 @@ class VDemConnector(DataConnector):
 
     def clean(self, raw_path: Path) -> pd.DataFrame:
         if raw_path.stat().st_size < 100:
-            logger.warning("[vdem] Raw file empty — skipping V-Dem.")
+            logger.warning("[vdem] Raw file empty - skipping V-Dem.")
             return pd.DataFrame(columns=["iso3", "year", "indicator", "value", "source"])
 
         logger.info("[vdem] Reading V-Dem RData...")

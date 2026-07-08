@@ -1,4 +1,4 @@
-"""Pillar configuration — maps every indicator to its canonical pillar.
+"""Pillar configuration - maps every indicator to its canonical pillar.
 
 Defines the 7-pillar taxonomy and sign-orientation rules per METHODOLOGY.md §3.5.
 """

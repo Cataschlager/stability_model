@@ -1,4 +1,4 @@
-# LIMITATIONS.md — Known Limitations and Caveats
+# LIMITATIONS.md - Known Limitations and Caveats
 
 > This document enumerates what the spectral instability model **cannot** do, where its assumptions break down, and where users should exercise caution in interpretation.
 
@@ -18,7 +18,7 @@ Authoritarian regimes systematically misreport economic statistics (GDP growth, 
 
 ## 3. Black Swan Events
 
-The model captures **structural** vulnerability — the slow-moving conditions that make instability more likely. It does not and cannot predict:
+The model captures **structural** vulnerability - the slow-moving conditions that make instability more likely. It does not and cannot predict:
 - Assassination of a head of state
 - Natural disasters (earthquakes, tsunamis, pandemics)
 - Sudden commodity price crashes
@@ -29,7 +29,7 @@ These are exogenous shocks that the model can only analyze *after* they occur (v
 
 ## 4. Endogenous Policy Response
 
-The model treats the structural baseline $s$ as exogenous. In reality, governments respond to rising instability with policy interventions — economic stimulus, security crackdowns, political reforms, international aid negotiations. These responses may prevent the instability trajectories the model projects.
+The model treats the structural baseline $s$ as exogenous. In reality, governments respond to rising instability with policy interventions - economic stimulus, security crackdowns, political reforms, international aid negotiations. These responses may prevent the instability trajectories the model projects.
 
 **Implication:** The model's projected trajectories assume no policy change. Steady-state instability scores should be interpreted as "what would happen if current conditions persisted without intervention," not as forecasts.
 
@@ -70,7 +70,7 @@ PCA assumes linear relationships among indicators. If instability is driven by n
 ## 10. GDP Universe Limits (Exclusion of Volatile Zones)
 
 The model's country universe is established by selecting the top 125 nations by nominal GDP. 
-* **Exclusion of Low-Income Conflict Zones:** While this includes the vast majority of global economic activity, it systematically excludes highly volatile, low-income regional conflict zones—such as the Sahel region (e.g., Niger, Chad, Gabon). 
+* **Exclusion of Low-Income Conflict Zones:** While this includes the vast majority of global economic activity, it systematically excludes highly volatile, low-income regional conflict zones-such as the Sahel region (e.g., Niger, Chad, Gabon). 
 * **Implication:** Because these countries are omitted from the network nodes, the model is unable to forecast highly localized, lower-income regional spillovers, limiting its predictive application in sub-Saharan Africa.
 
 ## 11. Coupling Matrix Weight Sensitivity
@@ -100,8 +100,8 @@ Country-level aggregation smooths over critical within-country variation.
 
 ## 14. Ecological Inference
 
-PCA on country-level aggregates produces country-level factors. These cannot be used to make inferences about individuals or sub-populations within countries. A country scoring high on "economic stress" does not mean all its citizens are economically stressed — the distribution matters, and our model captures only aggregate indicators like Gini, not full distributions.
+PCA on country-level aggregates produces country-level factors. These cannot be used to make inferences about individuals or sub-populations within countries. A country scoring high on "economic stress" does not mean all its citizens are economically stressed - the distribution matters, and our model captures only aggregate indicators like Gini, not full distributions.
 
 ## 15. Model Reflexivity
 
-In theory, if this model's outputs were used by policymakers or investors, their actions could change the underlying dynamics — creating a feedback loop the model does not account for. In practice, this is unlikely at the current stage, but it is a general limitation of political forecasting models (see Goodhart's Law).
+In theory, if this model's outputs were used by policymakers or investors, their actions could change the underlying dynamics - creating a feedback loop the model does not account for. In practice, this is unlikely at the current stage, but it is a general limitation of political forecasting models (see Goodhart's Law).

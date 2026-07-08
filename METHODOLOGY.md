@@ -1,4 +1,4 @@
-# METHODOLOGY.md — Spectral Model of Global Regime Instability
+# METHODOLOGY.md - Spectral Model of Global Regime Instability
 
 > Full methodological documentation for the spectral instability model.
 > Every modeling decision is documented with citations in BibTeX format (see `references.bib`).
@@ -10,7 +10,7 @@
 1. [Country Universe Selection](#1-country-universe-selection)
 2. [Data Sources](#2-data-sources)
 3. [Indicator Engineering](#3-indicator-engineering)
-4. [Spectral Core — Latent Instability Factors](#4-spectral-core--latent-instability-factors)
+4. [Spectral Core - Latent Instability Factors](#4-spectral-core--latent-instability-factors)
 5. [Country Coupling Matrix and Network Spectrum](#5-country-coupling-matrix-and-network-spectrum)
 6. [Dynamic Propagation Model](#6-dynamic-propagation-model)
 7. [Simulation Capabilities](#7-simulation-capabilities)
@@ -78,7 +78,7 @@ All data used in this model comes from official primary sources. No secondary ag
 - **Citation:** [@kaufmann2010wgi]
 - **Limitations:** Published biennially with some gaps. Estimates have substantial uncertainty bands (provided in the source data).
 
-#### Freedom House — Freedom in the World
+#### Freedom House - Freedom in the World
 
 - **Provides:** Aggregate freedom score (1–7, where 1 = most free), Political Rights (PR) subscore, Civil Liberties (CL) subscore, Freedom Status (Free / Partly Free / Not Free).
 - **Access:** Bulk Excel download from [freedomhouse.org](https://freedomhouse.org/report/freedom-world).
@@ -86,7 +86,7 @@ All data used in this model comes from official primary sources. No secondary ag
 - **Citation:** Freedom House (annual). Freedom in the World. Washington, DC.
 - **Limitations:** Methodology changes between survey years. The aggregate score direction (lower = more free) is inverted in §3.3.
 
-#### Transparency International — Corruption Perceptions Index (CPI)
+#### Transparency International - Corruption Perceptions Index (CPI)
 
 - **Provides:** CPI score (0–100, where 100 = least corrupt).
 - **Access:** Bulk CSV/Excel from [transparency.org](https://www.transparency.org/en/cpi).
@@ -94,17 +94,17 @@ All data used in this model comes from official primary sources. No secondary ag
 - **Citation:** Transparency International (annual). Corruption Perceptions Index.
 - **Limitations:** Methodology changed in 2012 (scale shifted from 0–10 to 0–100). We use post-2012 data only for consistency. Inverted in §3.3.
 
-#### Fund for Peace — Fragile States Index (FSI)
+#### Fund for Peace - Fragile States Index (FSI)
 
 - **Provides:** 12 sub-indicators (0–10 each) plus composite score (0–120): Security Apparatus (C1), Factionalized Elites (C2), Group Grievance (C3), Economic Decline (E1), Uneven Economic Development (E2), Human Flight & Brain Drain (E3), State Legitimacy (P1), Public Services (P2), Human Rights & Rule of Law (P3), Demographic Pressures (S1), Refugees & IDPs (S2), External Intervention (X1).
 - **Access:** Bulk Excel download from [fragilestatesindex.org](https://fragilestatesindex.org/). Also available via Kaggle/Mendeley consolidated CSVs.
 - **Python method:** `pandas.read_excel()`.
 - **Citation:** Fund for Peace (annual). Fragile States Index. Washington, DC.
-- **Role in model:** Used primarily as a **validation benchmark** (§9). FSI sub-indicators are also included in the indicator matrix where they map to canonical pillars. The composite FSI score is NOT used as an input — it is used only for the sanity check correlation in §4.4.
+- **Role in model:** Used primarily as a **validation benchmark** (§9). FSI sub-indicators are also included in the indicator matrix where they map to canonical pillars. The composite FSI score is NOT used as an input - it is used only for the sanity check correlation in §4.4.
 
 ### 2.2 Economic & Fiscal
 
-#### World Bank — World Development Indicators (WDI)
+#### World Bank - World Development Indicators (WDI)
 
 - **Provides:** GDP growth (`NY.GDP.MKTP.KD.ZG`), inflation CPI (`FP.CPI.TOTL.ZG`), unemployment (`SL.UEM.TOTL.ZS`), youth unemployment (`SL.UEM.1524.ZS`), Gini coefficient (`SI.POV.GINI`), current account % GDP (`BN.CAB.XOKA.GD.ZS`), gross reserves in months of imports (`FI.RES.TOTL.MO`), refugee population by country of asylum (`SM.POP.REFG`), internally displaced persons (`VC.IDP.TOTL.HE`).
 - **Access:** World Bank REST API via `wbgapi` package. No key required.
@@ -156,7 +156,7 @@ All data used in this model comes from official primary sources. No secondary ag
 - **Python method:** `pandas.read_excel()` or `pandas.read_csv()` (OWID URL).
 - **Citation:** Stockholm International Peace Research Institute (annual). SIPRI Military Expenditure Database.
 
-#### Global Terrorism Database — SUBSTITUTED
+#### Global Terrorism Database - SUBSTITUTED
 
 - **Original plan:** Use START/GTD for terrorism event counts.
 - **Status as of 2025:** The GTD has moved to **restricted access**. Downloading the full dataset requires a formal access request to START at the University of Maryland, with new DOJ regulations potentially further limiting access.
@@ -188,7 +188,7 @@ All data used in this model comes from official primary sources. No secondary ag
 - **Citation:** Chen, C. et al. (2015). University of Notre Dame Global Adaptation Initiative Country Index. ND-GAIN.
 - **Note:** Readiness is inverted in §3.3 (high readiness = low instability).
 
-#### World Bank WDI — Displacement Data
+#### World Bank WDI - Displacement Data
 
 - **Provides:** Refugee population by country of asylum (`SM.POP.REFG`), internally displaced persons (`VC.IDP.TOTL.HE`).
 - **Access:** Same as WDI above via `wbgapi`.
@@ -206,7 +206,7 @@ All data used in this model comes from official primary sources. No secondary ag
 #### BIS Locational Banking Statistics
 
 - **Provides:** Bilateral financial claims and liabilities between banking systems.
-- **Access:** Same as BIS consolidated (§2.2) — SDMX API or bulk CSV.
+- **Access:** Same as BIS consolidated (§2.2) - SDMX API or bulk CSV.
 - **Same coverage limitations as §2.2.**
 
 #### CEPII GeoDist Database
@@ -216,20 +216,20 @@ All data used in this model comes from official primary sources. No secondary ag
 - **Python method:** `pandas.read_csv()`.
 - **Citation:** [@mayer2011geodist]
 
-#### Correlates of War — Alliance Data (v4.1)
+#### Correlates of War - Alliance Data (v4.1)
 
 - **Provides:** Formal alliance ties classified as: defense pact, neutrality/nonaggression pact, entente. Dyadic format with start/end years.
 - **Access:** Bulk CSV from [correlatesofwar.org](https://correlatesofwar.org/data-sets/formal-alliances/).
 - **Python method:** `pandas.read_csv()`.
 - **Citation:** Gibler, D. M. (2009). International Military Alliances, 1648–2008. CQ Press.
 
-#### Correlates of War — Militarized Interstate Disputes (MID v5)
+#### Correlates of War - Militarized Interstate Disputes (MID v5)
 
 - **Provides:** Dyadic militarized disputes with hostility level, revisionist state, fatality level.
 - **Access:** Bulk CSV from correlatesofwar.org.
 - **Usage:** Active MIDs indicate interstate rivalry/tension, which transmits instability bidirectionally.
 
-#### UN DESA — Bilateral Migrant Stock
+#### UN DESA - Bilateral Migrant Stock
 
 - **Provides:** Bilateral origin-destination matrix of international migrant stock (number of migrants born in country j living in country i).
 - **Access:** Bulk Excel from [UN DESA](https://www.un.org/development/desa/pd/content/international-migrant-stock). Complex multi-tab matrices.
@@ -259,7 +259,7 @@ We use **Multivariate Imputation by Chained Equations (MICE)** [@vanbuuren2011mi
 **Implementation:**
 - `sklearn.impute.IterativeImputer` with `BayesianRidge` estimator (default MICE specification).
 - `max_iter=50`, `random_state` fixed for reproducibility.
-- `n_imputations=10` — we generate 10 multiply-imputed datasets and pool results following Rubin's rules [@rubin1987multiple].
+- `n_imputations=10` - we generate 10 multiply-imputed datasets and pool results following Rubin's rules [@rubin1987multiple].
 
 **Regional restriction:**
 - Imputation donors are restricted to countries within the same **UN M49 region** (e.g., Western Europe, Eastern Africa, South-Eastern Asia). This prevents implausible imputations such as using Nordic governance values to fill missing data for Sahel countries.
@@ -390,7 +390,7 @@ Captures sovereign fiscal health, debt sustainability, and external balance shee
 |---|---|---|---|
 | Fiscal balance % GDP | IMF WEO | `GGXCNL_NGDP` | Inverted (deficit → positive) |
 | Gross govt debt % GDP | IMF WEO | `GGXWDG_NGDP` | Keep |
-| External debt | IMF WEO | — | Keep |
+| External debt | IMF WEO | - | Keep |
 | Current account deficit | WDI | `BN.CAB.XOKA.GD.ZS` | Absolute deficit |
 | Reserves (months imports) | WDI | `FI.RES.TOTL.MO` | Inverted |
 
@@ -400,9 +400,9 @@ Captures social stress factors: demographic pressure, displacement, food insecur
 
 | Indicator | Source | Variable Code | Sign |
 |---|---|---|---|
-| Youth bulge (15–29 %) | UN Pop | — | Keep |
-| Urbanization rate | UN Pop | — | Keep |
-| Urban growth rate | UN Pop | — | Keep |
+| Youth bulge (15–29 %) | UN Pop | - | Keep |
+| Urbanization rate | UN Pop | - | Keep |
+| Urban growth rate | UN Pop | - | Keep |
 | Refugee pop. per capita | WDI | `SM.POP.REFG` | Keep |
 | IDPs | WDI | `VC.IDP.TOTL.HE` | Keep |
 | Demographic Pressures | FSI | `S1` | Keep |
@@ -416,13 +416,13 @@ Captures armed conflict, political violence, militarization, and security sector
 
 | Indicator | Source | Variable Code | Sign |
 |---|---|---|---|
-| UCDP conflict events | UCDP | — | Keep |
+| UCDP conflict events | UCDP | - | Keep |
 | ACLED battle events (12mo) | ACLED | `event_type=Battles` | Keep |
 | ACLED violence vs civilians | ACLED | `event_type=Violence against civilians` | Keep |
 | ACLED explosions/remote | ACLED | `event_type=Explosions/Remote violence` | Keep |
 | ACLED riots (12mo) | ACLED | `event_type=Riots` | Keep |
 | ACLED protests (12mo) | ACLED | `event_type=Protests` | **Keep with caveat** |
-| Military expend. % GDP | SIPRI | — | Keep |
+| Military expend. % GDP | SIPRI | - | Keep |
 | Security Apparatus | FSI | `C1` | Keep |
 | External Intervention | FSI | `X1` | Keep |
 
@@ -436,24 +436,24 @@ Captures climate vulnerability, environmental fragility, and resource-driven str
 |---|---|---|---|
 | ND-GAIN vulnerability | ND-GAIN | `vulnerability` | Keep |
 | ND-GAIN readiness | ND-GAIN | `readiness` | Inverted |
-| Food price index | FAO | — | Keep |
-| Urban growth rate | UN Pop | — | Keep |
+| Food price index | FAO | - | Keep |
+| Urban growth rate | UN Pop | - | Keep |
 
 ### 3.6 Output
 
 The indicator engineering step produces:
 
-- **`X`** — a **(125 × K)** country × indicator matrix for the most recent year, where K ≈ 45–50 depending on availability and missingness exclusions.
-- **`X_panel`** — a **(125 × K × T)** panel, where T = 15 years.
-- **`pillar_assignment`** — mapping of each of the K indicators to its pillar.
-- **`missingness_report`** — country × indicator missingness rates with flags.
-- **`imputation_diagnostics`** — convergence plots and distribution comparisons for MICE.
+- **`X`** - a **(125 × K)** country × indicator matrix for the most recent year, where K ≈ 45–50 depending on availability and missingness exclusions.
+- **`X_panel`** - a **(125 × K × T)** panel, where T = 15 years.
+- **`pillar_assignment`** - mapping of each of the K indicators to its pillar.
+- **`missingness_report`** - country × indicator missingness rates with flags.
+- **`imputation_diagnostics`** - convergence plots and distribution comparisons for MICE.
 
 All outputs are saved as Parquet files under `data/clean/`.
 
 ---
 
-## 4. Spectral Core — Latent Instability Factors
+## 4. Spectral Core - Latent Instability Factors
 
 Implemented in `model/pca.py`.
 
@@ -520,7 +520,7 @@ Implemented in `model/coupling.py`.
 
 ### 5.1 Overview
 
-We construct a **(125 × 125)** non-negative coupling matrix $W$ whose entry $W_{ij}$ measures how much instability in country $j$ propagates to country $i$. The matrix is **asymmetric** — a small country's dependence on a large trading partner is not reciprocated equally.
+We construct a **(125 × 125)** non-negative coupling matrix $W$ whose entry $W_{ij}$ measures how much instability in country $j$ propagates to country $i$. The matrix is **asymmetric** - a small country's dependence on a large trading partner is not reciprocated equally.
 
 $W$ is built as a weighted combination of five normalized sub-matrices:
 
@@ -540,7 +540,7 @@ These weights are exposed as configuration in `config.yaml` and their sensitivit
 
 ### 5.2 Sub-Matrix Construction
 
-#### $W_{\text{trade}}$ — Trade Dependency
+#### $W_{\text{trade}}$ - Trade Dependency
 
 $$W_{\text{trade}}[i,j] = \frac{\text{exports}_{ij} + \text{imports}_{ij}}{\text{total\_trade}_i}$$
 
@@ -550,7 +550,7 @@ where $\text{total\_trade}_i = \sum_k (\text{exports}_{ik} + \text{imports}_{ik}
 - This is naturally asymmetric: a small country that trades heavily with a large partner has high $W_{\text{trade}}[i,j]$, but the large partner's $W_{\text{trade}}[j,i]$ is small.
 - Diagonal: $W_{\text{trade}}[i,i] = 0$ (no self-loops).
 
-#### $W_{\text{fin}}$ — Financial Exposure
+#### $W_{\text{fin}}$ - Financial Exposure
 
 $$W_{\text{fin}}[i,j] = \frac{\text{claims}_{ij} + \text{liabilities}_{ij}}{\text{GDP}_i}$$
 
@@ -559,7 +559,7 @@ $$W_{\text{fin}}[i,j] = \frac{\text{claims}_{ij} + \text{liabilities}_{ij}}{\tex
 - For non-reporting countries: use mirror data where available; otherwise $W_{\text{fin}}[i,j] = 0$.
 - Diagonal: 0.
 
-#### $W_{\text{geo}}$ — Geographic Proximity
+#### $W_{\text{geo}}$ - Geographic Proximity
 
 $$W_{\text{geo}}[i,j] = \frac{1}{d_{ij}} + \beta \cdot \text{contiguity}_{ij}$$
 
@@ -568,7 +568,7 @@ where $d_{ij}$ is the population-weighted great-circle distance from CEPII GeoDi
 - Row-normalized before combining with other sub-matrices.
 - Diagonal: 0 (distance to self is undefined; set to 0).
 
-#### $W_{\text{pol}}$ — Political Ties
+#### $W_{\text{pol}}$ - Political Ties
 
 $$W_{\text{pol}}[i,j] = \sum_{\text{type}} \text{alliance}_{ij}^{(\text{type})} + \gamma \cdot \text{active\_MID}_{ij}$$
 
@@ -578,7 +578,7 @@ where alliance types are defense pact (+1), neutrality/nonaggression (+0.5), ent
 - **Rationale for including both alliances and rivalries:** Both transmit instability. Alliance partners are pulled into each other's crises through commitment mechanisms; rivals transmit instability through escalation spirals and arms races.
 - Symmetric by construction (alliances and MIDs are dyadic). Row-normalized before combination.
 
-#### $W_{\text{mig}}$ — Migration Linkages
+#### $W_{\text{mig}}$ - Migration Linkages
 
 $$W_{\text{mig}}[i,j] = \frac{\text{migrants\_from\_j\_in\_i}}{\text{population}_i}$$
 
@@ -593,7 +593,7 @@ After combining:
 
 $$W_{\text{norm}}[i,:] = \frac{W[i,:]}{\sum_j W[i,j]}$$
 
-This ensures each row sums to 1, making $W$ **row-stochastic**. Substantively, this imposes a "total exposure budget" per country — the question is not how much total exposure a country has, but how that exposure is distributed across partners.
+This ensures each row sums to 1, making $W$ **row-stochastic**. Substantively, this imposes a "total exposure budget" per country - the question is not how much total exposure a country has, but how that exposure is distributed across partners.
 
 ### 5.4 Spectral Analysis of $W$
 
@@ -605,11 +605,11 @@ Since $W$ is non-symmetric, it generally has **complex eigenvalues**. We compute
 
 2. **Spectral gap** $\delta = |\lambda_1| - |\lambda_2|$. A larger spectral gap means faster convergence of the dynamic model (§6) and cleaner separation of the dominant mode from secondary modes [@newman2010networks].
 
-3. **Right eigenvector centrality** — the leading right eigenvector $v_R$ (corresponding to $\lambda_1 = 1$) identifies countries whose instability has the **broadest downstream impact** (systemic transmitters). This is the classical eigenvector centrality measure [@bonacich1972factoring].
+3. **Right eigenvector centrality** - the leading right eigenvector $v_R$ (corresponding to $\lambda_1 = 1$) identifies countries whose instability has the **broadest downstream impact** (systemic transmitters). This is the classical eigenvector centrality measure [@bonacich1972factoring].
 
-4. **Left eigenvector** — the leading left eigenvector $v_L$ identifies countries **most exposed to receiving** instability from the network.
+4. **Left eigenvector** - the leading left eigenvector $v_L$ identifies countries **most exposed to receiving** instability from the network.
 
-5. **Eigenvalue magnitude plot** — visualization of $|\lambda_k|$ vs. $k$ to characterize the spectrum.
+5. **Eigenvalue magnitude plot** - visualization of $|\lambda_k|$ vs. $k$ to characterize the spectrum.
 
 ---
 
@@ -622,18 +622,18 @@ Implemented in `model/dynamics.py`.
 $$x(t+1) = \alpha \cdot W \cdot x(t) + (1 - \alpha) \cdot s + \eta(t)$$
 
 where:
-- $x(t) \in \mathbb{R}^{125}$ — instability vector at time $t$
-- $s \in \mathbb{R}^{125}$ — structural baseline from §4 (composite instability scores)
-- $\alpha \in [0, 1)$ — coupling strength (default 0.4)
-- $\eta(t) \in \mathbb{R}^{125}$ — idiosyncratic shock term (default zero; nonzero in simulation scenarios)
-- $W$ — the row-stochastic coupling matrix from §5
+- $x(t) \in \mathbb{R}^{125}$ - instability vector at time $t$
+- $s \in \mathbb{R}^{125}$ - structural baseline from §4 (composite instability scores)
+- $\alpha \in [0, 1)$ - coupling strength (default 0.4)
+- $\eta(t) \in \mathbb{R}^{125}$ - idiosyncratic shock term (default zero; nonzero in simulation scenarios)
+- $W$ - the row-stochastic coupling matrix from §5
 
 ### 6.2 Theoretical Framework
 
 This model is a **Friedkin-Johnsen opinion dynamics model** [@friedkin1990social] with stochastic perturbations, applied to cross-country instability propagation. It generalizes the DeGroot consensus model [@degroot1974consensus]:
 
-- **Pure DeGroot** ($\alpha = 1$, $s = 0$, $\eta = 0$): $x(t+1) = W \cdot x(t)$. All countries converge to a weighted average — consensus. No structural anchoring.
-- **Friedkin-Johnsen** ($0 < \alpha < 1$, $\eta = 0$): Each country's instability is a blend of network influence (neighbors' instability) and intrinsic susceptibility. Countries are "stubborn" — they don't fully converge to neighbors.
+- **Pure DeGroot** ($\alpha = 1$, $s = 0$, $\eta = 0$): $x(t+1) = W \cdot x(t)$. All countries converge to a weighted average - consensus. No structural anchoring.
+- **Friedkin-Johnsen** ($0 < \alpha < 1$, $\eta = 0$): Each country's instability is a blend of network influence (neighbors' instability) and intrinsic susceptibility. Countries are "stubborn" - they don't fully converge to neighbors.
 - **Our model** adds $\eta(t)$ for scenario simulation (exogenous shocks).
 
 The parameter $\alpha$ interpolates between independent country dynamics ($\alpha = 0$: instability is purely structural) and full network contagion ($\alpha \to 1$: instability is purely transmitted).
@@ -726,7 +726,7 @@ Implemented in `model/dynamics.py` (core) and `app/streamlit_app.py` + `app/cli.
 
 **Procedure:**
 1. Apply all shocks simultaneously.
-2. Check whether the spectral radius of the perturbed effective operator ($\alpha W_{\text{perturbed}}$) exceeds 1 — if so, the system has tipped from damped to explosive.
+2. Check whether the spectral radius of the perturbed effective operator ($\alpha W_{\text{perturbed}}$) exceeds 1 - if so, the system has tipped from damped to explosive.
 3. If stable, compute new steady state. If explosive, report the divergence rate.
 
 **Output:**
@@ -740,15 +740,15 @@ Implemented in `model/dynamics.py` (core) and `app/streamlit_app.py` + `app/cli.
 
 **Procedure:** Extract column $i$ of $(I - \alpha W)^{-1}$.
 
-**Output:** For every other country $j$, the partial derivative $\partial x^*_j / \partial s_i$ — how much a unit increase in country $i$'s structural instability raises country $j$'s steady-state instability.
+**Output:** For every other country $j$, the partial derivative $\partial x^*_j / \partial s_i$ - how much a unit increase in country $i$'s structural instability raises country $j$'s steady-state instability.
 
 ### 7.5 Key Design Principle
 
 The UI explicitly distinguishes:
-- **Structural state** — where the country sits in latent instability space (from PCA), reflecting its intrinsic conditions.
-- **Transmitted state** — how much instability arrives from its network neighbors (the amplification via $(I - \alpha W)^{-1}$).
+- **Structural state** - where the country sits in latent instability space (from PCA), reflecting its intrinsic conditions.
+- **Transmitted state** - how much instability arrives from its network neighbors (the amplification via $(I - \alpha W)^{-1}$).
 
-Both are informative and are displayed separately. Conflating them is the most common failure mode of network-instability dashboards — a country with low structural instability but high eigenvector centrality neighbors (e.g., Jordan) will show up differently in each view.
+Both are informative and are displayed separately. Conflating them is the most common failure mode of network-instability dashboards - a country with low structural instability but high eigenvector centrality neighbors (e.g., Jordan) will show up differently in each view.
 
 ---
 
@@ -808,8 +808,8 @@ For each of these episodes, we run the model with that year's exogenous data and
 
 Compute Spearman rank correlation between our composite instability index and:
 
-1. **Fragile States Index (FSI)** headline score — target: $\rho \geq 0.75$.
-2. **EIU Democracy Index** (inverted, so higher = less democratic = more instability-adjacent) — target: $\rho \geq 0.75$.
+1. **Fragile States Index (FSI)** headline score - target: $\rho \geq 0.75$.
+2. **EIU Democracy Index** (inverted, so higher = less democratic = more instability-adjacent) - target: $\rho \geq 0.75$.
 
 If targets are not met, we do **not** adjust the model to fit. Instead, we document the discrepancy, investigate its source (e.g., which countries drive divergence), and explain whether the divergence reflects a genuine modeling insight or a deficiency.
 
@@ -820,9 +820,9 @@ Using the composite instability score as the sole predictor:
 1. **Outcome variable:** Binary indicator for next-year ACLED-defined conflict onset (country transitions from <25 battle-related deaths to ≥25, following UCDP's minor conflict threshold).
 2. **Hold-out period:** Most recent 3 years.
 3. **Training:** Logistic regression on the remaining years.
-4. **Metric:** Area Under the ROC Curve (AUC) — target: ≥ 0.80.
+4. **Metric:** Area Under the ROC Curve (AUC) - target: ≥ 0.80.
 
-This is an intentionally simple test. If a composite index constructed from the inputs cannot discriminate conflict onset at AUC ≥ 0.80, the index is not capturing the relevant signal. If it does, it validates the indicator selection and weighting — not the network propagation, which is validated separately through §9.1.
+This is an intentionally simple test. If a composite index constructed from the inputs cannot discriminate conflict onset at AUC ≥ 0.80, the index is not capturing the relevant signal. If it does, it validates the indicator selection and weighting - not the network propagation, which is validated separately through §9.1.
 
 ---
 
